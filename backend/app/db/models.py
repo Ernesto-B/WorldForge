@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Text, ForeignKey, TIMESTAMP, Boolean, JSON, Enum
 from sqlalchemy.orm import relationship, declarative_base
 import enum
-from datetime import datetime
+import datetime
 
 Base = declarative_base()
 
@@ -26,7 +26,7 @@ class User(Base):
     email = Column(String(255), unique=True, nullable=False)
     username = Column(String(100), nullable=False)
     role = Column(Enum(UserRole), nullable=False)
-    created_at = Column(TIMESTAMP, default=datetime.utcnow)
+    created_at = Column(TIMESTAMP, default=datetime.datetime.now(datetime.timezone.utc))
 
     campaigns = relationship('CampaignMembership', back_populates='user')
 
@@ -38,7 +38,7 @@ class World(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(255), nullable=False)
     description = Column(Text)
-    created_at = Column(TIMESTAMP, default=datetime.utcnow)
+    created_at = Column(TIMESTAMP, default=datetime.datetime.now(datetime.timezone.utc))
 
     campaigns = relationship('Campaign', back_populates='world')
     regions = relationship('MapRegion', back_populates='world')
@@ -55,7 +55,7 @@ class Campaign(Base):
     dm_id = Column(Integer, ForeignKey('users.id'))
     name = Column(String(255), nullable=False)
     current_session = Column(Integer, default=1)
-    created_at = Column(TIMESTAMP, default=datetime.utcnow)
+    created_at = Column(TIMESTAMP, default=datetime.datetime.now(datetime.timezone.utc))
 
     world = relationship('World', back_populates='campaigns')
     memberships = relationship('CampaignMembership', back_populates='campaign')
@@ -70,7 +70,7 @@ class CampaignMembership(Base):
     campaign_id = Column(Integer, ForeignKey('campaigns.id'))
     user_id = Column(Integer, ForeignKey('users.id'))
     role = Column(Enum(CampaignRole))
-    joined_at = Column(TIMESTAMP, default=datetime.utcnow)
+    joined_at = Column(TIMESTAMP, default=datetime.datetime.now(datetime.timezone.utc))
 
     campaign = relationship('Campaign', back_populates='memberships')
     user = relationship('User', back_populates='campaigns')
@@ -87,7 +87,7 @@ class MapRegion(Base):
     coordinates = Column(JSON)
     is_revealed = Column(Boolean, default=False)
     revealed_at_session = Column(Integer, nullable=True)
-    created_at = Column(TIMESTAMP, default=datetime.utcnow)
+    created_at = Column(TIMESTAMP, default=datetime.datetime.now(datetime.timezone.utc))
 
     world = relationship('World', back_populates='regions')
 
@@ -101,7 +101,7 @@ class Session(Base):
     session_number = Column(Integer, nullable=False)
     path_data = Column(JSON)
     summary = Column(Text)
-    created_at = Column(TIMESTAMP, default=datetime.utcnow)
+    created_at = Column(TIMESTAMP, default=datetime.datetime.now(datetime.timezone.utc))
 
     campaign = relationship('Campaign', back_populates='sessions')
 
@@ -116,7 +116,7 @@ class MapMarker(Base):
     name = Column(String(255))
     description = Column(Text)
     coordinates = Column(JSON)
-    created_at = Column(TIMESTAMP, default=datetime.utcnow)
+    created_at = Column(TIMESTAMP, default=datetime.datetime.now(datetime.timezone.utc))
 
     world = relationship('World', back_populates='markers')
 
@@ -130,8 +130,8 @@ class WorldEvent(Base):
     title = Column(String(255))
     description = Column(Text)
     visible_at_session = Column(Integer)
-    created_at = Column(TIMESTAMP, default=datetime.utcnow)
+    created_at = Column(TIMESTAMP, default=datetime.datetime.now(datetime.timezone.utc))
 
     world = relationship('World', back_populates='events')
-    
-    
+
+
