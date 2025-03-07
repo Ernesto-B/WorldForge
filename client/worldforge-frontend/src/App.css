@@ -1,0 +1,35 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --padding: 30px;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+main {
+  flex: 1;
+}
+
+header {
+  padding: var(--padding);
+  background-color: #eeeeee;
+}
+
+footer {
+  padding: var(--padding);
+  background-color: #eeeeee;
+}
+
+.page-content {
+  padding: var(--padding);
+}
