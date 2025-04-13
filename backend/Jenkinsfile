@@ -57,24 +57,11 @@ pipeline {
         stage("Security Scan (Bandit)") {
 
         }
-
-        stage("Docker Build") {
-
-        }
-
     }
 
     post {
-        always {
-
-        }
-
         success {
             echo 'completed pipeline successfully.'
-        }
-
-        failure {
-
         }
     }
 }
