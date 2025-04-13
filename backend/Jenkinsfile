@@ -86,7 +86,7 @@ pipeline {
         stage('Security Scan (Bandit)') {
             steps {
                 dir('backend') {
-                    sh './venv/bin/bandit -r app -f html -o bandit-report.html || true'
+                    sh './.venv/bin/bandit -r app -f html -o bandit-report.html || true'
                 }
             }
         }
@@ -95,7 +95,7 @@ pipeline {
     post {
         always {
             archiveArtifacts artifacts: '**/coverage.xml', fingerprint: true
-            archiveArtifacts artifacts: 'bandit-report.html', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'backend/bandit-report.html', allowEmptyArchive: true
         }
 
         success {
