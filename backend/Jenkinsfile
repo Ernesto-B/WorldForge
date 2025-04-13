@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'python:3.11'
+        }
+    }
 
     stages {
         stage("Checkout") {
@@ -17,7 +21,7 @@ pipeline {
 
         stage("Linting (flake8)") {
             steps {
-                sh './venv/bin/flake8 app/ --count --select=E9,F63,F7,F82 --show-source --statistics'
+                sh './.venv/bin/flake8 app/ --count --select=E9,F63,F7,F82 --show-source --statistics'
             }
 
         }
@@ -39,8 +43,8 @@ pipeline {
                     sh """
                         sonar-scanner \\
                         -Dsonar.projectKey=worldforge \\
-                        -Dsonar.sources =. \\
-                        -Dsonar.host.url=http:sonarqube:9000 \\
+                        -Dsonar.sources=. \\
+                        -Dsonar.host.url=http://sonarqube:9000 \\
                         -Dsonar.login=$SONAR_TOKEN \\
                         -Dsonar.python.coverage.reportPaths=coverage.xml
                     """
