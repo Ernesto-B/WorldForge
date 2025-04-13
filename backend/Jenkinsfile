@@ -3,6 +3,7 @@ pipeline {
 
     parameters {
         booleanParam(name: 'RUN_UNIT_TESTS', defaultValue: true, description: 'Toggle to run the uni tests (pytest + coverage)')
+        booleanParam(name: 'RUN_JMETER', defaultValue: true, description: 'Toggle to run JMeter performance test')
     }
 
     stages {
@@ -69,12 +70,18 @@ pipeline {
         }
 
         stage("Performance Testing (Jmeter)") {
+            when {
+                allOf {
+                    expression { params.RUN_JMETER }
+                    expression { fileExists('backend/tests/load_tests.jmx') }
+                }
+            }
             steps {
                 dir('backend') {
                     sh 'jmeter -n -t tests/load_tests.jmx -l results.jtl'
                 }
             }
-        }
+                }
     }
 
     post {
