@@ -1,0 +1,80 @@
+pipeline {
+    agent any
+
+    stages {
+        stage("Checkout") {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage("Build") {
+            steps {
+                sh 'python -m venv .venv'
+                sh './.venv/bin/pip install -r requirements.txt'
+            }
+        }
+
+        stage("Linting (flake8)") {
+            steps {
+                sh './venv/bin/flake8 app/ --count --select=E9,F63,F7,F82 --show-source --statistics'
+            }
+
+        }
+
+        stage("Unit Testing (pytest)") {
+            steps {
+                sh './.venv/bin/pytest --cov=app --cov-report=xml'
+                junit 'tests/reports/*.xml'
+            }
+
+        }
+
+        stage("Quality Analysis (SonarQube)") {
+            environment {
+                SONAR_SCANNER_OPTS = "-Xmx512m"
+            }
+            steps {
+                withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
+                    sh """
+                        sonar-scanner \\
+                        -Dsonar.projectKey=worldforge \\
+                        -Dsonar.sources =. \\
+                        -Dsonar.host.url=http:sonarqube:9000 \\
+                        -Dsonar.login=$SONAR_TOKEN \\
+                        -Dsonar.python.coverage.reportPaths=coverage.xml
+                    """
+                }
+            }
+        }
+
+        stage("Performance Testing (Jmeter)") {
+            steps {
+                sh 'jmeter -n -t tests/load_tests.jmx -l results.jtl'
+            }
+        }
+
+        stage("Security Scan (Bandit)") {
+
+        }
+
+        stage("Docker Build") {
+
+        }
+
+    }
+
+    post {
+        always {
+
+        }
+
+        success {
+            echo 'completed pipeline successfully.'
+        }
+
+        failure {
+
+        }
+    }
+}

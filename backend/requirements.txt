@@ -1,3 +1,7 @@
 sqlalchemy
 fastapi[standard]
 cryptography
+flake8
+pytest
+pytest-cov
+coverage
