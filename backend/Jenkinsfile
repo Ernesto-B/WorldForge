@@ -82,9 +82,22 @@ pipeline {
                 }
             }
                 }
+
+        stage('Security Scan (Bandit)') {
+            steps {
+                dir('backend') {
+                    sh './venv/bin/bandit -r app -f html -o bandit-report.html || true'
+                }
+            }
+        }
     }
 
     post {
+        always {
+            archiveArtifacts artifacts: '**/coverage.xml', fingerprint: true
+            archiveArtifacts artifacts: 'bandit-report.html', allowEmptyArchive: true
+        }
+
         success {
             echo 'completed pipeline successfully.'
         }
