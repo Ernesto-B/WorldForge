@@ -53,10 +53,6 @@ pipeline {
                 sh 'jmeter -n -t tests/load_tests.jmx -l results.jtl'
             }
         }
-
-        stage("Security Scan (Bandit)") {
-
-        }
     }
 
     post {
