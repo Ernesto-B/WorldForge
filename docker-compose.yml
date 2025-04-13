@@ -16,7 +16,9 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   jenkins:
-    image: jenkins/jenkins:lts-jdk17
+    build:
+      context: .
+      dockerfile: jenkins.dockerfile
     ports:
       - 8081:8080
     environment:
