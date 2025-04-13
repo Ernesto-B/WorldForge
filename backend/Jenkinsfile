@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    parameters {
+        booleanParam(name: 'RUN_UNIT_TESTS', defaultValue: true, description: 'Toggle to run the uni tests (pytest + coverage)')
+    }
+
     stages {
         stage("Checkout") {
             steps {
@@ -26,6 +30,11 @@ pipeline {
         }
 
         stage("Unit Testing (pytest)") {
+            when {
+                expression {
+                    params.RUN_UNIT_TESTS
+                }
+            }
             steps {
                 dir('backend') {
                     sh './.venv/bin/pytest --cov=app --cov-report=xml --junitxml=tests/reports/results.xml'
@@ -35,6 +44,11 @@ pipeline {
         }
 
         stage("Quality Analysis (SonarQube)") {
+            when {
+                expression {
+                    params.RUN_UNIT_TESTS
+                }
+            }
             environment {
                 SONAR_SCANNER_OPTS = "-Xmx512m"
             }
