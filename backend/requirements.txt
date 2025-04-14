@@ -1,4 +1,5 @@
 sqlalchemy
+pymysql
 fastapi[standard]
 cryptography
 flake8
