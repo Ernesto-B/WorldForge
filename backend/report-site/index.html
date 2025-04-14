@@ -53,6 +53,24 @@
     <li><a href="./bandit-report.xml" target="_blank">Raw Bandit Report (XML)</a></li>
     <li><a href="./results.jtl" target="_blank">Raw JMeter Results (JTL)</a></li>
   </ul>
+
+  <h2>🔍 Latest Commit Information</h2>
+  <pre id="commit-info">Loading commit information...</pre>
+
+  <h2>🔗 SonarCloud Dashboard</h2>
+  <p><a href="https://sonarcloud.io/project/overview?id=Ernesto-B_WorldForge" target="_blank">View SonarCloud Project</a></p>
+
+  <script>
+    fetch('commit_info.txt')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('commit-info').textContent = data;
+      })
+      .catch(error => {
+        document.getElementById('commit-info').textContent = 'Failed to load commit information.';
+        console.error('Error fetching commit_info.txt:', error);
+      });
+  </script>
 </body>
 </html>
 
