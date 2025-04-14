@@ -125,11 +125,6 @@ jobs:
       - name: Setup GH Pages
         uses: actions/configure-pages@v4
 
-      - name: Copy Reports
-        run: |
-          mkdir -p public
-          cp -r backend/reports/* public/
-
       - name: Deploy to GH Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
