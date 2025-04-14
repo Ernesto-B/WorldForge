@@ -89,12 +89,13 @@ pipeline {
                 dir('backend') {
                     sh './.venv/bin/bandit -r app -f xml -o bandit-report.xml || true'
                 }
-                recordIssues tools: [genericParser(
-                    pattern: 'backend/bandit-report.xml',
-                    name: 'Bandit Security Warnings',
-                    regexp: '<issue severity="(?<severity>.*?)" .*? msg="(?<message>.*?)" .*? filename="(?<fileName>.*?)" .*? line="(?<line>\d+)"',
-                    example: '<issue severity="LOW" confidence="HIGH" cwe="703" msg="Use of unsafe yaml load. Allows instantiation of arbitrary objects. Consider yaml.safe_load()." filename="main.py" line="10" test_id="B506" test_name="yaml_load"/>'
-                )]
+            recordIssues tools: [genericParser(
+                pattern: 'backend/bandit-report.xml',
+                name: 'Bandit Security Warnings',
+                regexp: '<issue severity="(?<severity>.*?)" .*? msg="(?<message>.*?)" .*? filename="(?<fileName>.*?)" .*? line="(?<line>\\d+)"',
+                example: '<issue severity="LOW" confidence="HIGH" cwe="703" msg="Use of unsafe yaml load. Allows instantiation of arbitrary objects. Consider yaml.safe_load()." filename="main.py" line="10" test_id="B506" test_name="yaml_load"/>'
+            )]
+
 
             }
         }
