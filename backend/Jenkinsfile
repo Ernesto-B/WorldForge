@@ -41,6 +41,7 @@ pipeline {
                     sh './.venv/bin/pytest --cov=app --cov-report=xml --junitxml=tests/reports/results.xml'
                     junit 'tests/reports/results.xml'
                 }
+                publishCoverage adapters: [coberturaAdapter('backend/coverage.xml')]
             }
         }
 
@@ -86,8 +87,9 @@ pipeline {
         stage('Security Scan (Bandit)') {
             steps {
                 dir('backend') {
-                    sh './.venv/bin/bandit -r app -f html -o bandit-report.html || true'
+                    sh './.venv/bin/bandit -r app -f xml -o bandit-report.xml || true'
                 }
+                recordIssues tools: [bandit(pattern: 'backend/bandit-report.xml')]
             }
         }
     }
