@@ -14,8 +14,8 @@ jobs:
       SONAR_SCANNER_OPTS: "-Xmx512m"
 
     steps:
-      - name: Checkout
-        uses: actions/setup-python@v4
+      - name: Checkout Repo
+        uses: actions/checkout@v4
 
       - name: Python Setup
         uses: actions/setup-python@v5
