@@ -102,4 +102,24 @@ jobs:
           path: backend/reports/results.jtl
 
 
+  deploy-reports:
+    needs: build
+    runs-on: ubuntu-latest
 
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Setup GH Pages
+        uses: actions/configure-pages@v4
+
+      - name: Copy Reports
+        run: |
+          mkdir -p public
+          cp -r backend/reports/* public/
+
+      - name: Deploy to GH Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
