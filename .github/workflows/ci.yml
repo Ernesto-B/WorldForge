@@ -101,6 +101,33 @@ jobs:
           name: jmeter-results
           path: backend/reports/results.jtl
 
+      - name: Generate Coverage HTML Report
+        working-directory: ./backend
+        run: |
+          source .venv/bin/activate
+          coverage html -d reports/htmlcov
+
+      - name: Generate JUnit HTML Report
+        working-directory: ./backend
+        run: |
+          source .venv/bin/activate
+          pip install junit2html
+          junit2html reports/results.xml reports/junit-report.html
+
+      - name: Generate Bandit HTML Report
+        working-directory: ./backend
+        run: |
+          source .venv/bin/activate
+          bandit -r app -f html -o reports/bandit-report.html || true
+
+      - name: Generate JMeter HTML Report
+        if: ${{ github.event_name != 'pull_request' && hashFiles('backend/tests/load_tests.jmx') != ''}}
+        working-directory: ./backend
+        run: |
+          mkdir -p reports/jmeter
+          jmeter -g reports/results.jtl -o reports/jmeter
+
+
       - name: Upload All Reports as Artifact
         uses: actions/upload-artifact@v4
         with:
@@ -124,6 +151,9 @@ jobs:
 
       - name: Setup GH Pages
         uses: actions/configure-pages@v4
+
+      - name: Copy index File to public Site
+        run: cp backend/report-site/index.html public/
 
       - name: Deploy to GH Pages
         uses: peaceiris/actions-gh-pages@v4
