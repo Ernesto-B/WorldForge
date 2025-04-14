@@ -1,3 +1,3 @@
-Commit Message: Added git commit SHA and rearranged information on report-site
-Commit Timestamp: 2025-04-14 15:15:48 -0600
-Commit SHA: 21d3ed5
+Commit Message: Updated layout for report-site
+Commit Timestamp: 2025-04-14 15:20:40 -0600
+Commit SHA: 89660d0
