@@ -62,19 +62,17 @@ jobs:
           name: junit-results
           path: backend/reports/results.xml
 
-      - name: SonarQube Scan
-        working-directory: ./backend
-        if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository }}
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v2
+        with:
+          projectKey: Ernesto-B_WorldForge
+          organization: ernesto-b
+          args: >
+            -Dsonar.sources=/backend
+            -Dsonar.python.coverage.reportPaths=coverage.xml
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          source .venv/bin/activate
-          sonar-scanner \
-            -Dsonar.projectKey=Ernesto-B_WorldForge \
-            -Dsonar.sources=. \
-            -Dsonar.host.url=https://sonarcloud.io
-            -Dsonar.login=${SONAR_TOKEN} \
-            -Dsonar.python.coverage.reportPaths=coverage.xml
+
 
       - name: Bandit Security Scan
         working-directory: ./backend
