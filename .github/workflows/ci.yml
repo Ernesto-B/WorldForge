@@ -105,7 +105,7 @@ jobs:
         working-directory: ./backend
         run: |
           source .venv/bin/activate
-          coverage html -d reports/htmlcov
+          coverage html -d reports/coverage
 
       - name: Generate JUnit HTML Report
         working-directory: ./backend
