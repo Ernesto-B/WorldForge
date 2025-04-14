@@ -73,8 +73,6 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-
-
       - name: Bandit Security Scan
         working-directory: ./backend
         run: |
@@ -84,7 +82,7 @@ jobs:
       - name: Upload Bandit Report
         uses: actions/upload-artifact@v4
         with:
-          name: bandit:report
+          name: bandit-report
           path: backend/reports/bandit-report.xml
 
       - name: Run JMeter Performance Test (If Available)
