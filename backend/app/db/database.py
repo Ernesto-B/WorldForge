@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from app.models.models import User
+from app.db.models import User
 
 DATABASE_URL = "mysql+pymysql://root:rootpassword@localhost:8080/worldforge_db"     # Change on prod
 
