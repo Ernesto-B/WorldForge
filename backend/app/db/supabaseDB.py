@@ -1,4 +1,5 @@
 from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import NullPool
 from dotenv import load_dotenv
 import os
@@ -20,6 +21,7 @@ DATABASE_URL = f"postgresql+psycopg2://{USER}:{PASSWORD}@{HOST}:{PORT}/{DBNAME}?
 # https://docs.sqlalchemy.org/en/20/core/pooling.html#switching-pool-implementations
 engine = create_engine(DATABASE_URL, poolclass=NullPool)
 
+SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
 # Test the connection
 try:
     with engine.connect() as connection:

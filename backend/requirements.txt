@@ -7,6 +7,7 @@ python-jose[cryptography]
 passlib
 python-dotenv
 psycopg2
+supabase
 
 flake8
 pytest
