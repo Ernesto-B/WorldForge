@@ -2,6 +2,12 @@ sqlalchemy
 pymysql
 fastapi[standard]
 cryptography
+bcrypt
+python-jose[cryptography]
+passlib
+python-dotenv
+psycopg2
+
 flake8
 pytest
 pytest-cov

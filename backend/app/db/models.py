@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Text, ForeignKey, TIMESTAMP, Boolean, JSON, Enum
+from sqlalchemy import Column, Integer, PrimaryKeyConstraint, String, Text, ForeignKey, TIMESTAMP, Boolean, JSON, Enum, column
 from sqlalchemy.orm import relationship, declarative_base
 import enum
 import datetime
@@ -23,8 +23,9 @@ class User(Base):
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True, index=True)
-    email = Column(String(255), unique=True, nullable=False)
     username = Column(String(100), nullable=False)
+    email = Column(String(255), unique=True, nullable=False)
+    password_hash = Column(String(100), nullable=False)
     role = Column(Enum(UserRole), nullable=False)
     created_at = Column(TIMESTAMP, default=datetime.datetime.now(datetime.timezone.utc))
 
@@ -54,7 +55,7 @@ class Campaign(Base):
     world_id = Column(Integer, ForeignKey('worlds.id'))
     dm_id = Column(Integer, ForeignKey('users.id'))
     name = Column(String(255), nullable=False)
-    current_session = Column(Integer, default=1)
+    current_session_number = Column(Integer, default=1)
     created_at = Column(TIMESTAMP, default=datetime.datetime.now(datetime.timezone.utc))
 
     world = relationship('World', back_populates='campaigns')
@@ -99,6 +100,7 @@ class Session(Base):
     id = Column(Integer, primary_key=True, index=True)
     campaign_id = Column(Integer, ForeignKey('campaigns.id'))
     session_number = Column(Integer, nullable=False)
+    start_date = Column(TIMESTAMP, default=datetime.datetime.now(datetime.timezone.utc))
     path_data = Column(JSON)
     summary = Column(Text)
     created_at = Column(TIMESTAMP, default=datetime.datetime.now(datetime.timezone.utc))
@@ -134,4 +136,12 @@ class WorldEvent(Base):
 
     world = relationship('World', back_populates='events')
 
+class LoreEntries(Base):
+    __tablename__ = 'lore_entries'
 
+    id = Column(Integer, primary_key=True, index=True)
+    region_id = Column(Integer, ForeignKey('map_regions.id'))
+    title = Column(String(255))
+    content = Column(Text)
+    created_by = Column(Integer, ForeignKey('users.id'))
+    created_at = Column(TIMESTAMP, default=datetime.datetime.now(datetime.timezone.utc))
