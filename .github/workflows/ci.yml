@@ -47,6 +47,8 @@ jobs:
         working-directory: ./backend
         env:
           PYTHONPATH: ${{ github.workspace }}/backend
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: |
           source .venv/bin/activate
           pytest --cov=app --cov-report=xml:reports/coverage.xml --junitxml=reports/results.xml

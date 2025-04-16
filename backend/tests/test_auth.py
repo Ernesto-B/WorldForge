@@ -41,11 +41,15 @@ def register_data_fail():
 
 def test_login_success(login_data_success):
     response = client.post("/api/auth/login", json=login_data_success)
+    print(response.json())
+    print(response.status_code)
     assert response.status_code == 200
     assert "user" in response.json()
 
 def test_login_fail(login_data_fail):
     response = client.post("/api/auth/login", json=login_data_fail)
+    print(response.json())
+    print(response.status_code)
     assert response.status_code == 500
     assert "detail" in response.json()
 
@@ -57,5 +61,7 @@ def test_register_success(register_data_success):
 
 def test_register_fail(register_data_fail):
     response = client.post("/api/auth/register", json=register_data_fail)
+    print(response.json())
+    print(response.status_code)
     assert response.status_code == 400
     assert "detail" in response.json()
