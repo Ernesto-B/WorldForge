@@ -1,0 +1,14 @@
+[run]
+branch = True
+relative_files = True
+source = backend/app
+
+[report]
+omit =
+    */tests/*
+    */.venv/*
+    */__init__.py
+
+show_missing = True
+skip_covered = False
+
