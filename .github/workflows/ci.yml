@@ -45,7 +45,10 @@ jobs:
 
       - name: Run Tests with Coverage
         working-directory: ./backend
-        if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository }}
+        env:
+          PYTHONPATH: ${{ github.workspace }}/backend
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: |
           source .venv/bin/activate
           pytest --cov=app --cov-report=xml:reports/coverage.xml --junitxml=reports/results.xml

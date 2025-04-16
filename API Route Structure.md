@@ -10,8 +10,8 @@ This API route structure is designed to support the core features of WorldForge,
 
 | Method | Endpoint          | Description                         |
 | ------ | ----------------- | ----------------------------------- |
-| POST   | /api/auth/login   | User login via OAuth or credentials |
-| POST   | /api/auth/refresh | Refresh authentication token        |
+| POST   | /api/auth/register| Register a user using Supabase auth |
+| POST   | /api/auth/login   | Login a user using Supabase auth    |
 
 ---
 
