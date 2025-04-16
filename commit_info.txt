@@ -1,4 +1,4 @@
-Commit Message: fix: added branch coverage to coverage report, removed coveragerc file
+Commit Message: refactor: moved old and unused files to legacy folder
 
-Commit Timestamp: 2025-04-16 02:02:55 -0600
-Commit SHA: c1fe322
+Commit Timestamp: 2025-04-16 02:15:57 -0600
+Commit SHA: 005bbb5
