@@ -1,4 +1,4 @@
-Commit Message: fix: commented out sonarqube step from ci
+Commit Message: fix: added branch coverage to coverage report, removed coveragerc file
 
-Commit Timestamp: 2025-04-16 01:44:18 -0600
-Commit SHA: a417b5f
+Commit Timestamp: 2025-04-16 02:02:55 -0600
+Commit SHA: c1fe322
