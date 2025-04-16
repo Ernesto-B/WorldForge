@@ -1,4 +1,5 @@
 import pytest
+from unittest.mock import patch, MagicMock
 from fastapi.testclient import TestClient
 from app.gateway import app
 from random import randint
@@ -53,7 +54,16 @@ def test_login_fail(login_data_fail):
     assert response.status_code == 500
     assert "detail" in response.json()
 
-def test_register_success(register_data_success):
+@patch("app.services.register.create_client")
+def test_register_success(mock_create_client, register_data_success):
+    mock_supabase = MagicMock()
+    mock_supabase.auth.sign_up.return_value = MagicMock(
+        user={"id": "123", "email": "mock@test.com"},
+        session={"access_token": "fake_token"},
+        error=None
+    )
+    mock_create_client.return_value = mock_supabase
+
     response = client.post("/api/auth/register", json=register_data_success)
     print(response.json())
     print(response.status_code)
