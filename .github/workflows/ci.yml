@@ -53,6 +53,15 @@ jobs:
           source .venv/bin/activate
           pytest --cov=app --cov-report=xml:reports/coverage.xml --junitxml=reports/results.xml --cov-report=term --cov-report=term-missing --cov-config=../.coveragerc
 
+      - name: Post Process Coverage Report
+        working-directory: ./backend
+        run: |
+          # Replace occurrences of <source>app with <source>backend/app in the coverage XML file.
+          sed -i 's|<source>app|<source>backend/app|g' reports/coverage.xml
+          # Optional: output a few lines to verify the changes.
+          head -n 5 reports/coverage.xml
+
+
       - name: Upload Coverage Report
         uses: actions/upload-artifact@v4
         with:
