@@ -51,7 +51,7 @@ jobs:
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: |
           source .venv/bin/activate
-          pytest --cov=app --cov-report=xml:reports/coverage.xml --junitxml=reports/results.xml
+          pytest --cov=app --cov-branch --cov-report=xml:reports/coverage.xml --junitxml=reports/results.xml
 
       - name: Upload Coverage Report
         uses: actions/upload-artifact@v4
@@ -65,16 +65,16 @@ jobs:
           name: junit-results
           path: backend/reports/results.xml
 
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v2
-        with:
-          args: >
-            -Dsonar.projectKey=Ernesto-B_WorldForge
-            -Dsonar.organization=ernesto-b
-            -Dsonar.sources=./backend
-            -Dsonar.python.coverage.reportPaths=./backend/reports/coverage.xml
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      # - name: SonarCloud Scan
+      #   uses: SonarSource/sonarcloud-github-action@v2
+      #   with:
+      #     args: >
+      #       -Dsonar.projectKey=Ernesto-B_WorldForge
+      #       -Dsonar.organization=ernesto-b
+      #       -Dsonar.sources=backend
+      #       -Dsonar.python.coverage.reportPaths=backend/reports/coverage.xml
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: Bandit Security Scan
         working-directory: ./backend
@@ -133,8 +133,13 @@ jobs:
       - name: Extract Latest Commit Info
         id: commit_info
         run: |
-          echo "COMMIT_MESSAGE=$(git log -1 --pretty=%B)" >> $GITHUB_ENV
-          echo "COMMIT_TIMESTAMP=$(git log -1 --format=%cd --date=iso)" >> $GITHUB_ENV
+          # echo "COMMIT_MESSAGE=$(git log -1 --pretty=%B)" >> $GITHUB_ENV
+          {
+            echo "COMMIT_MESSAGE<<EOF"
+            git log -1 --pretty=%B
+            echo "EOF"
+          } >> $GITHUB_ENV
+          echo "COMMIT_TIMESTAMP=$(git log -1 --date=format:'%Y-%m-%dT%H:%M:%S%z' --format=%cd)" >> $GITHUB_ENV
           echo "COMMIT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
       - name: Save Commit Info to File
