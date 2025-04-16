@@ -71,8 +71,8 @@ jobs:
           args: >
             -Dsonar.projectKey=Ernesto-B_WorldForge
             -Dsonar.organization=ernesto-b
-            -Dsonar.sources=./backend
-            -Dsonar.python.coverage.reportPaths=./backend/reports/coverage.xml
+            -Dsonar.sources=backend
+            -Dsonar.python.coverage.reportPaths=backend/reports/coverage.xml
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
