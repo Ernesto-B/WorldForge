@@ -139,7 +139,7 @@ jobs:
             git log -1 --pretty=%B
             echo "EOF"
           } >> $GITHUB_ENV
-          echo "COMMIT_TIMESTAMP=$(git log -1 --format=%cd --date=iso)" >> $GITHUB_ENV
+          echo "COMMIT_TIMESTAMP=$(git log -1 --date=format:'%Y-%m-%dT%H:%M:%S%z' --format=%cd)" >> $GITHUB_ENV
           echo "COMMIT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
       - name: Save Commit Info to File

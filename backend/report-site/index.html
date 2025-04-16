@@ -57,17 +57,25 @@
     <li><a href="./results.jtl" target="_blank">Raw JMeter Results (JTL)</a></li>
   </ul>
 
-  <script>
-    fetch('commit_info.txt')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('commit-info').textContent = data;
-      })
-      .catch(error => {
-        document.getElementById('commit-info').textContent = 'Failed to load commit information.';
-        console.error('Error fetching commit_info.txt:', error);
-      });
-  </script>
+<script>
+  fetch('commit_info.txt')
+    .then(response => response.text())
+    .then(text => {
+      // Replace the ISO timestamp with one formatted in the local timezone
+      const updatedText = text.replace(
+        /Commit Timestamp:\s*(.+)/,
+        (match, ts) => {
+          const localDate = new Date(ts).toLocaleString();
+          return `Commit Timestamp: ${localDate}`;
+        }
+      );
+      document.getElementById('commit-info').textContent = updatedText;
+    })
+    .catch(error => {
+      document.getElementById('commit-info').textContent = 'Failed to load commit information.';
+      console.error('Error fetching commit_info.txt:', error);
+    });
+</script>
 </body>
 </html>
 
