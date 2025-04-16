@@ -1,4 +1,4 @@
-Commit Message: fix: attempt at fixing sonarqube report pathing. Fixed pathing to coveragerc file
+Commit Message: fix: attempt at fixing sonarqube report pathing. Added paths section
 
-Commit Timestamp: 2025-04-16 01:13:02 -0600
-Commit SHA: dc4f6e8
+Commit Timestamp: 2025-04-16 01:28:34 -0600
+Commit SHA: 0733d00
