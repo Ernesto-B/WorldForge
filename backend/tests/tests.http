@@ -4,7 +4,7 @@ content-type: application/json
 
 {
     "email": "email@gmail.com",
-    "password": "test"
+    "password": "testi"
 }
 
 ### testing login with supabase

@@ -6,6 +6,9 @@ import os
 load_dotenv()
 
 def register_user(email: str, password: str):
+    if len(password) < 6:
+        raise HTTPException(400, "Password must be at least 6 characters.")
+
     SUPABASE_URL = os.getenv("SUPABASE_URL")
     SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 
@@ -18,9 +21,6 @@ def register_user(email: str, password: str):
             "email": email,
             "password": password
         })
-
-        if not response.session or not response.user:
-            raise HTTPException(401, "Invalid username or password")
 
         return response
 

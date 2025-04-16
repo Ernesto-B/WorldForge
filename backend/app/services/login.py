@@ -20,9 +20,6 @@ def login_user(email:str, password: str):
             "password": password
         })
 
-        if not response.session or not response.user:
-            raise HTTPException(401, "Invalid username or password")
-
         return response
 
     except Exception as e:
