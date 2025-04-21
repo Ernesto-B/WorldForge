@@ -1,4 +1,6 @@
 # Proposed API Route Structure for WorldForge
+> [!WARNING]
+> NEEDS UPDATING. Cross-reference with `docUxFlowPlan.md` for best idea of features/routes.
 
 ## Overview
 

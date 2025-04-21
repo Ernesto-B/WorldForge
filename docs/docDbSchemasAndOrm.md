@@ -2,7 +2,6 @@
 
 ## Overview
 This schema is designed to support the core features of WorldForge, including users, worlds, campaigns, map regions, session paths, markers, world events, and lore entries. It is designed with relational integrity in mind and optimized for MySQL (or any RDB). To prevent SQL injections and support DB independence, we will also use SQLAlchemy ORM.
-[MySQL Docker image](https://hub.docker.com/_/mysql)
 
 - [WorldForge Database Schema Design and ORM](#worldforge-database-schema-design-and-orm)
   - [Overview](#overview)
@@ -237,5 +236,13 @@ router = APIRouter()
 
 @router.get("/users/{user_id}/campaigns")
 def read_user_campaigns(user_id: int, db: Session = Depends(get_db)):
-    return get_user_campaigns(db, user_id)
+    return get_user_campaigns(db, user_id)  # Call function in service file
+
+
+# Using ORM example
+# Import desired table model class from models file.
+from app.db.models import WorldSettings
+@router.get("/anotherTest/{world_id}")
+def get_join_method(db: Session = Depends(get_db)):
+    response = db.query(WorldSettings).filter_by(world_id=world_id).first()
 ```
