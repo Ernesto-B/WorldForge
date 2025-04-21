@@ -1,12 +1,13 @@
 from fastapi import FastAPI
 from app.controllers.auth_controller import auth_controller
+from app.controllers.world_controller import world_controller
 
 app = FastAPI()
 
 # core routers
 app.include_router(auth_controller, prefix="/api/auth", tags=["auth"])
 # app.include_router(users_controller.router, prefix="/api/users", tags=["users"])
-# app.include_router(worlds_controller.router, prefix="/api/worlds", tags=["worlds"])
+app.include_router(world_controller, prefix="/api/worlds", tags=["worlds"])
 
 # # campaigns
 # app.include_router(campaigns_controller.router, prefix="/api/campaigns", tags=["campaigns"])
@@ -35,6 +36,6 @@ app.include_router(auth_controller, prefix="/api/auth", tags=["auth"])
 
 @app.get("/")
 async def root():
+    print("hello :)")
     return {"message:" : "Root"}
-
 
