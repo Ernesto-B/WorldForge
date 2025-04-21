@@ -40,7 +40,9 @@ def register_data_fail():
         "password": "not>6"
     }
 
+
 def test_login_success(login_data_success):
+    # Expecting this to pass since the provided user/password exists
     response = client.post("/api/auth/login", json=login_data_success)
     print(response.json())
     print(response.status_code)
@@ -48,6 +50,7 @@ def test_login_success(login_data_success):
     assert "user" in response.json()
 
 def test_login_fail(login_data_fail):
+    # Expecting this to fail since the user provided does not exist
     response = client.post("/api/auth/login", json=login_data_fail)
     print(response.json())
     print(response.status_code)
@@ -56,6 +59,7 @@ def test_login_fail(login_data_fail):
 
 @patch("app.services.register.create_client")
 def test_register_success(mock_create_client, register_data_success):
+    # Expecting this to pass since email is valid and len(password)>6
     mock_supabase = MagicMock()
     mock_supabase.auth.sign_up.return_value = MagicMock(
         user={"id": "123", "email": "mock@test.com"},
@@ -70,6 +74,7 @@ def test_register_success(mock_create_client, register_data_success):
     assert response.status_code == 200
 
 def test_register_fail(register_data_fail):
+    # Expecting this to fail since len(password)<6
     response = client.post("/api/auth/register", json=register_data_fail)
     print(response.json())
     print(response.status_code)
