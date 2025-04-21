@@ -5,6 +5,7 @@ from app.services.login import login_user
 from pydantic import BaseModel, EmailStr
 from app.db.supabaseDB import get_db
 from app.db.models import World
+from app.core.security import require_role
 
 class AuthRequest(BaseModel):
     email: EmailStr
@@ -29,4 +30,10 @@ def login(request: AuthRequest):
 def test(db: Session = Depends(get_db)):
     data = db.query(World).all()
     return data
+
+# This demonstrates how to implement RBAC. Note you must list all permitted roles (DM, Spectator, Player)
+# REMOVE THIS... DEV ONLY
+@auth_controller.get("/testing/{campaign_id}")
+def testing(auth = Depends(require_role("campaign_id", ["DM"]))):
+    return {"message": "Access granted"}
 

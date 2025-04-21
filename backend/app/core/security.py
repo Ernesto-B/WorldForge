@@ -7,6 +7,7 @@ from app.db.models import UserCampaignRole
 import os
 
 SUPABASE_JWT_SECRET = os.getenv("SUPABASE_JWT_SECRET")
+SUPABASE_URL = os.getenv("SUPABASE_URL")
 
 if not SUPABASE_JWT_SECRET:
     raise HTTPException(500, "Supabase JWT secret missing")
@@ -17,10 +18,10 @@ def get_current_user_id(request: Request):
         raise HTTPException(status_code=HTTP_401_UNAUTHORIZED, detail="No JWT provided")
 
     try:
-        payload = jwt.decode(token[7:], SUPABASE_JWT_SECRET, algorithms=["HS256"])
+        payload = jwt.decode(token[7:], SUPABASE_JWT_SECRET, algorithms=["HS256"], audience="authenticated", issuer=f"{SUPABASE_URL}/auth/v1")
         return payload["sub"]  # Supabase puts UUID in `sub`
-    except JWTError:
-        raise HTTPException(status_code=HTTP_401_UNAUTHORIZED, detail="Invalid token")
+    except JWTError as e:
+        raise HTTPException(status_code=HTTP_401_UNAUTHORIZED, detail=f"Invalid token: {e}")
 
 
 def get_user_role_for_campaign(campaign_id: int, user_id: str, db : Session = Depends(get_db)):

@@ -8,7 +8,6 @@ passlib
 python-dotenv
 psycopg2
 supabase
-jose
 
 flake8
 pytest
