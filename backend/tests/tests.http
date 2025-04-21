@@ -16,3 +16,6 @@ content-type: application/json
     "password": "test"
 }
 
+### testing the db connectivity
+GET http://localhost:3001/api/auth/test
+

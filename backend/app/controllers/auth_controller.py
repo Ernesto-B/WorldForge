@@ -3,6 +3,8 @@ from sqlalchemy.orm import Session
 from app.services.register import register_user
 from app.services.login import login_user
 from pydantic import BaseModel, EmailStr
+from app.db.supabaseDB import get_db
+from app.db.models import World
 
 class AuthRequest(BaseModel):
     email: EmailStr
@@ -20,4 +22,11 @@ def register(request: AuthRequest):
 def login(request: AuthRequest):
     response = login_user(request.email, request.password)
     return response
+
+# This demonstrates how to get database connectivity from the bd object using the ORM
+# REMOVE THIS... DEV ONLY
+@auth_controller.get("/test")
+def test(db: Session = Depends(get_db)):
+    data = db.query(World).all()
+    return data
 
