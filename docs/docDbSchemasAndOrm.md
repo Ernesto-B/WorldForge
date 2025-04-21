@@ -1,7 +1,7 @@
 # WorldForge Database Schema Design and ORM
 
 ## Overview
-This schema is designed to support the core features of WorldForge, including users, worlds, campaigns, map regions, session paths, markers, world events, and lore entries. It is designed with relational integrity in mind and optimized for MySQL (or any RDB). To prevent SQL injections and support DB independence, we will also use SQLAlchemy ORM.
+This schema is designed to support the core features of WorldForge. It is designed with relational integrity in mind and optimized for PostgreSQL (or any RDB). To prevent SQL injections and be DB agnostic, we will also use SQLAlchemy ORM.
 
 - [WorldForge Database Schema Design and ORM](#worldforge-database-schema-design-and-orm)
   - [Overview](#overview)
@@ -13,7 +13,11 @@ This schema is designed to support the core features of WorldForge, including us
   - [Map Markers](#map-markers)
   - [World Events](#world-events)
   - [Lore Entries](#lore-entries)
-  - [Relationships and Key Considerations](#relationships-and-key-considerations)
+  - [User Campaign Roles (Join Table)](#user-campaign-roles-(join-table))
+  - [Notifications](#notifications)
+  - [Party Positions](#party-positions)
+  - [World Time](#world-time)
+  - [Campaign Invites](#campaign-invites)
   - [Future Scalability](#future-scalability)
 - [SQLAlchemy Models](#sqlalchemy-models)
   - [Querying the models](#querying-the-models)
@@ -29,7 +33,7 @@ CREATE TABLE worlds (
 );
 ```
 ## World Settings
-```
+```sql
 CREATE TABLE world_settings (
     id SERIAL PRIMARY KEY,
     world_id INT UNIQUE NOT NULL REFERENCES worlds(id) ON DELETE CASCADE,
@@ -147,7 +151,7 @@ CREATE TABLE user_campaign_roles (
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
   world_id INTEGER NOT NULL REFERENCES worlds(id) ON DELETE CASCADE,
   campaign_id INTEGER NOT NULL REFERENCES campaigns(id) ON DELETE CASCADE,
-  role VARCHAR(32) NOT NULL CHECK (role IN ('Creator', 'Member', 'Pending')),
+  role VARCHAR(32) NOT NULL CHECK (role IN ('DM', 'Spectator', 'Player')),
   joined_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   UNIQUE(user_id, campaign_id)
 );
