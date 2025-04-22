@@ -1,0 +1,114 @@
+pipeline {
+    agent any
+
+    parameters {
+        booleanParam(name: 'RUN_UNIT_TESTS', defaultValue: true, description: 'Toggle to run the uni tests (pytest + coverage)')
+        booleanParam(name: 'RUN_JMETER', defaultValue: true, description: 'Toggle to run JMeter performance test')
+    }
+
+    stages {
+        stage("Checkout") {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage("Build") {
+            steps {
+                dir('backend') {
+                    sh 'python3 -m venv .venv'
+                    sh './.venv/bin/pip install -r requirements.txt'
+                }
+            }
+        }
+
+        stage("Linting (flake8)") {
+            steps {
+                dir('backend') {
+                    sh './.venv/bin/flake8 app/ --count --select=E9,F63,F7,F82 --show-source --statistics'
+                }
+            }
+        }
+
+        stage("Unit Testing (pytest)") {
+            when {
+                expression {
+                    params.RUN_UNIT_TESTS
+                }
+            }
+            steps {
+                dir('backend') {
+                    sh './.venv/bin/pytest --cov=app --cov-report=xml --junitxml=tests/reports/results.xml'
+                    junit 'tests/reports/results.xml'
+                }
+                publishCoverage adapters: [coberturaAdapter('backend/coverage.xml')]
+            }
+        }
+
+        stage("Quality Analysis (SonarQube)") {
+            when {
+                expression {
+                    params.RUN_UNIT_TESTS
+                }
+            }
+            environment {
+                SONAR_SCANNER_OPTS = "-Xmx512m"
+            }
+            steps {
+                dir('backend') {
+                    withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
+                        sh """
+                            sonar-scanner \\
+                            -Dsonar.projectKey=worldforge \\
+                            -Dsonar.sources=. \\
+                            -Dsonar.host.url=http://sonarqube:9000 \\
+                            -Dsonar.login=$SONAR_TOKEN \\
+                            -Dsonar.python.coverage.reportPaths=coverage.xml
+                        """
+                    }
+                }
+            }
+        }
+
+        stage("Performance Testing (Jmeter)") {
+            when {
+                allOf {
+                    expression { params.RUN_JMETER }
+                    expression { fileExists('backend/tests/load_tests.jmx') }
+                }
+            }
+            steps {
+                dir('backend') {
+                    sh 'jmeter -n -t tests/load_tests.jmx -l results.jtl'
+                }
+            }
+                }
+
+        stage('Security Scan (Bandit)') {
+            steps {
+                dir('backend') {
+                    sh './.venv/bin/bandit -r app -f xml -o bandit-report.xml || true'
+                }
+                recordIssues sourceCodeEncoding: 'UTF-8',
+                    tool: groovyScript(
+                        parserId: 'bandit-groovy',
+                        pattern: 'backend/bandit-report.xml',
+                        reportEncoding: 'UTF-8'
+                    )
+            }
+        }
+
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: '**/coverage.xml', fingerprint: true
+            archiveArtifacts artifacts: 'backend/bandit-report.html', allowEmptyArchive: true
+        }
+
+        success {
+            echo 'completed pipeline successfully.'
+        }
+    }
+}
+

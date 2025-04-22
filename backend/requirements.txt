@@ -1,0 +1,17 @@
+sqlalchemy
+pymysql
+fastapi[standard]
+cryptography
+bcrypt
+python-jose[cryptography]
+passlib
+python-dotenv
+psycopg2
+supabase
+
+flake8
+pytest
+pytest-cov
+coverage
+junit-xml
+bandit

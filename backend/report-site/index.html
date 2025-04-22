@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WorldForge CI Reports</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+    h1 {
+      color: #333;
+    }
+    .report-list {
+      list-style: none;
+      padding: 0;
+    }
+    .report-list li {
+      background: #fff;
+      margin: 0.5rem 0;
+      padding: 1rem;
+      border-left: 5px solid #007acc;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .report-list a {
+      text-decoration: none;
+      color: #007acc;
+      font-weight: bold;
+    }
+    .report-list a:hover {
+      text-decoration: underline;
+    }
+</style>
+</head>
+<body>
+  <h1>WorldForge - CI Report Dashboard</h1>
+  <pre id="commit-info">Loading commit information...</pre>
+
+  <h3><a href="https://sonarcloud.io/project/overview?id=Ernesto-B_WorldForge" target="_blank">View SonarCloud Project</a></h3>
+
+  <h2>Reports</h2>
+  <ul class="report-list">
+    <li><a href="./coverage/index.html" target="_blank">📊 Test Coverage Report (HTML)</a></li>
+    <li><a href="./junit-report.html" target="_blank">✅ JUnit Test Results (HTML)</a></li>
+    <li><a href="./bandit-report.html" target="_blank">🛡️ Bandit Security Report (HTML)</a></li>
+    <li><a href="./jmeter/index.html" target="_blank"> 📈 JMeter Performance Report (HTML)</a></li>
+  </ul>
+
+  <h2>Raw Report Files</h2>
+  <ul class="report-list">
+    <li><a href="./coverage.xml" target="_blank">Raw Test Coverage Results (XML)</a></li>
+    <li><a href="./results.xml" target="_blank">Raw JUnit Results (XML)</a></li>
+    <li><a href="./bandit-report.xml" target="_blank">Raw Bandit Report (XML)</a></li>
+    <li><a href="./results.jtl" target="_blank">Raw JMeter Results (JTL)</a></li>
+  </ul>
+
+<script>
+  fetch('commit_info.txt')
+    .then(response => response.text())
+    .then(text => {
+      // Replace the ISO timestamp with one formatted in the local timezone
+      const updatedText = text.replace(
+        /Commit Timestamp:\s*(.+)/,
+        (match, ts) => {
+          const localDate = new Date(ts).toLocaleString();
+          return `Commit Timestamp: ${localDate}`;
+        }
+      );
+      document.getElementById('commit-info').textContent = updatedText;
+    })
+    .catch(error => {
+      document.getElementById('commit-info').textContent = 'Failed to load commit information.';
+      console.error('Error fetching commit_info.txt:', error);
+    });
+</script>
+</body>
+</html>
+
+

@@ -35,6 +35,7 @@ CREATE TABLE map_regions (
     description TEXT,
     coordinates JSON, -- Store polygon or region data as GeoJSON-like structure
     is_revealed BOOLEAN DEFAULT FALSE,
+    revealed_at_session INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (world_id) REFERENCES worlds(id) ON DELETE CASCADE
 );
@@ -43,7 +44,7 @@ CREATE TABLE sessions (
     id INT PRIMARY KEY AUTO_INCREMENT,
     campaign_id INT,
     session_number INT NOT NULL,
-    path_coordinates JSON, -- Freehand path data as a list of coordinate points
+    path_data JSON, -- Freehand path data as a list of coordinate points
     summary TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (campaign_id) REFERENCES campaigns(id) ON DELETE CASCADE
@@ -67,10 +68,9 @@ CREATE TABLE world_events (
     world_id INT,
     title VARCHAR(150) NOT NULL,
     description TEXT,
-    pinned_by INT, -- DM who created the event
+    visivle_at_session INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (world_id) REFERENCES worlds(id) ON DELETE CASCADE,
-    FOREIGN KEY (pinned_by) REFERENCES users(id) ON DELETE SET NULL
 );
 
 CREATE TABLE lore_entries (

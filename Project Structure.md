@@ -6,16 +6,6 @@ worldforge/backend
 │   ├── main.py
 │   ├── core/
 │   │   └── security.py           # OAuth, JWT, RBAC logic
-│   ├── routers/
-│   │   ├── auth_router.py
-│   │   ├── user_router.py
-│   │   ├── world_router.py
-│   │   ├── campaign_router.py
-│   │   ├── region_router.py
-│   │   ├── session_router.py
-│   │   ├── marker_router.py
-│   │   ├── event_router.py
-│   │   └── lore_router.py
 │   ├── controllers/
 │   │   ├── auth_controller.py
 │   │   ├── user_controller.py
