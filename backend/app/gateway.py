@@ -1,13 +1,14 @@
 from fastapi import FastAPI
 from app.controllers.auth_controller import auth_controller
-from app.controllers.world_controller import world_controller
+# from app.controllers.world_controller import world_controller
+from app.controllers.users_controller import users_controller
 
 app = FastAPI()
 
 # core routers
 app.include_router(auth_controller, prefix="/api/auth", tags=["auth"])
-# app.include_router(users_controller.router, prefix="/api/users", tags=["users"])
-app.include_router(world_controller, prefix="/api/worlds", tags=["worlds"])
+app.include_router(users_controller, prefix="/api/users", tags=["users"])
+# app.include_router(world_controller, prefix="/api/worlds", tags=["worlds"])
 
 # # campaigns
 # app.include_router(campaigns_controller.router, prefix="/api/campaigns", tags=["campaigns"])
@@ -17,7 +18,7 @@ app.include_router(world_controller, prefix="/api/worlds", tags=["worlds"])
 # app.include_router(mapRegions_controller.router, prefix="/api/regions", tags=["regions"])
 # app.include_router(mapRegions_controller.router, prefix="/api/worlds/{world_id}/regions", tags=["regions"])
 
-# # sessions
+
 # app.include_router(sessions_controller.router, prefix="/api/sessions", tags=["sessions"])
 # app.include_router(sessions_controller.router, prefix="/api/campaigns/{campaign_id}/sessions", tags=["sessions"])
 
@@ -38,4 +39,3 @@ app.include_router(world_controller, prefix="/api/worlds", tags=["worlds"])
 async def root():
     print("hello :)")
     return {"message:" : "Root"}
-

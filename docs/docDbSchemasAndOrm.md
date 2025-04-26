@@ -152,6 +152,7 @@ CREATE TABLE user_campaign_roles (
   world_id INTEGER NOT NULL REFERENCES worlds(id) ON DELETE CASCADE,
   campaign_id INTEGER NOT NULL REFERENCES campaigns(id) ON DELETE CASCADE,
   role VARCHAR(32) NOT NULL CHECK (role IN ('DM', 'Spectator', 'Player')),
+-- FIX: this name needs to be changed bc its confusing
   joined_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   UNIQUE(user_id, campaign_id)
 );

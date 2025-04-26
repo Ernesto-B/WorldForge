@@ -18,9 +18,14 @@ content-type: application/json
 
 ### testing the db connectivity
 GET http://localhost:3001/api/auth/test
+content-type: application/json
 
 
 ### testing RBAC. user 'test@test.com' has role 'DM'!!!
 GET http://localhost:3001/api/auth/testing/0
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6ImFqM29NWnVRc3ZoaEhjVGYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3dhYWlxand2amN0ZmFndXhtZ2ZqLnN1cGFiYXNlLmNvL2F1dGgvdjEiLCJzdWIiOiI2YmI2Mzk4NS0yMjE4LTRmMWMtODA0OS00YzNhOTc2YTdhYTUiLCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzQ1MjM1OTcwLCJpYXQiOjE3NDUyMzIzNzAsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsiZW1haWxfdmVyaWZpZWQiOnRydWV9LCJyb2xlIjoiYXV0aGVudGljYXRlZCIsImFhbCI6ImFhbDEiLCJhbXIiOlt7Im1ldGhvZCI6InBhc3N3b3JkIiwidGltZXN0YW1wIjoxNzQ1MjMyMzcwfV0sInNlc3Npb25faWQiOiI2YjlhNGU1YS0xMjE1LTQ2ZGMtYTM0YS1jZmVlN2Y0YWY1NDYiLCJpc19hbm9ueW1vdXMiOmZhbHNlfQ.bRY7tQxeo2OWG_XHEuOAFek5WjebLmbi8k18qGD_OlA
+
+### testing getting user campaign role data
+GET http://localhost:3001/api/users/me/6bb63985-2218-4f1c-8049-4c3a976a7aa5
+content-type: application/json
