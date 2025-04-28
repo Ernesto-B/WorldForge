@@ -1,9 +1,41 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse
+from sqlalchemy.exc import SQLAlchemyError
 from app.controllers.auth_controller import auth_controller
 # from app.controllers.world_controller import world_controller
 from app.controllers.users_controller import users_controller
+# from app.controllers.campaign_controller import campaigns_controller
 
 app = FastAPI()
+
+# ONLY FOR PRODUCTION
+# # Handler for SQLAlchemy "DB" errors
+# @app.exception_handler(SQLAlchemyError)
+# async def sqlalchemy_exception_handler(request: Request, exc: SQLAlchemyError):
+#     print(f"Database error: {exc}")
+#     return JSONResponse(
+#         status_code=400,
+#         content={"detail":"A database error occured."}
+#     )
+#
+# # Handler for bad client inputs
+# @app.exception_handler(RequestValidationError)
+# async def sqlalchemy_exception_handler(request: Request, exc: RequestValidationError):
+#     print(f"Validation error: {exc}")
+#     return JSONResponse(
+#         status_code=422,
+#         content={"detail": exc.errors()}
+#     )
+#
+# # Generic catch-all fallback if all else fails
+# @app.exception_handler(Exception)
+# async def generic_exception_handler(request: Request, exc: Exception):
+#     print(f"Unexpected error: {exc}")
+#     return JSONResponse(
+#         status_code=500,
+#         content={"detail":"Internal server error"}
+#     )
 
 # core routers
 app.include_router(auth_controller, prefix="/api/auth", tags=["auth"])
@@ -11,7 +43,7 @@ app.include_router(users_controller, prefix="/api/users", tags=["users"])
 # app.include_router(world_controller, prefix="/api/worlds", tags=["worlds"])
 
 # # campaigns
-# app.include_router(campaigns_controller.router, prefix="/api/campaigns", tags=["campaigns"])
+# app.include_router(campaigns_controller, prefix="/api/campaigns", tags=["campaigns"])
 # app.include_router(campaigns_controller.router, prefix="/api/worlds/{world_id}/campaigns", tags=["campaigns"])
 
 # # regions
@@ -37,5 +69,4 @@ app.include_router(users_controller, prefix="/api/users", tags=["users"])
 
 @app.get("/")
 async def root():
-    print("hello :)")
     return {"message:" : "Root"}

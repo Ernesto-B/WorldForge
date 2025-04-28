@@ -121,7 +121,7 @@ def test_get_user_by_id(client):
 def test_user_by_id_failure(client):
     response = client.get(f"/api/users/RANDOM{fake_user_id}")
     print(response.json())
-    assert response.status_code == 500
+    assert response.status_code == 404
     assert "detail" in response.json()
 
 

@@ -1,5 +1,7 @@
 from app.db.models import Campaign, UserCampaignRole, World
 from fastapi import HTTPException
+from app.core.exceptions import DatabaseQueryError, UserNotFoundError
+from sqlalchemy.exc import SQLAlchemyError
 
 def get_user_info(user_id: str, db):
     try:
@@ -7,7 +9,7 @@ def get_user_info(user_id: str, db):
         user_involvements = db.query(UserCampaignRole).filter_by(user_id = user_id).all()
 
         if not user_involvements:
-            raise HTTPException(404, "User not found or no campaign or world involvements")
+            raise UserNotFoundError()
 
         # extract campaign ID's
         user_campaign_ids = {item.campaign_id for item in user_involvements}
@@ -33,6 +35,6 @@ def get_user_info(user_id: str, db):
             "world_names": user_world_names,
             "world_info": user_worlds,
         }
-    except Exception as e:
-        raise  HTTPException(500, str(e))
-        # TODO: more descriptive error required??
+
+    except SQLAlchemyError as e:
+        raise  DatabaseQueryError()
