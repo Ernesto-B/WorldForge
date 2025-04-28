@@ -7,5 +7,5 @@ def get_world_events(limit, offset, user_worlds, db):
         world_events = db.query(WorldEvent).filter(WorldEvent.id.in_(user_worlds)).limit(limit).offset(offset)
         return world_events
     except Exception as e:
-        raise HTTPException(55, str(e))
+        raise HTTPException(500, str(e))
 

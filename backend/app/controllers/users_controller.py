@@ -15,7 +15,7 @@ def get_me(user_id: str = Depends(get_current_user_id), db: Session = Depends(ge
     response = get_user_info(user_id, db)
     return response
 
-
+# NOTE: Requires passing in pagination params from client
 @users_controller.get("/notifications")
 def get_notifications(
     limit: int = 10,
@@ -28,6 +28,7 @@ def get_notifications(
     return response
 
 
+# NOTE: Requires passing in pagination params from client
 @users_controller.get("/events")
 def get_events(
     limit: int = 10,
