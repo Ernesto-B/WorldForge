@@ -6,6 +6,9 @@ def get_user_info(user_id: str, db):
         # load user's roles in every campaign
         user_involvements = db.query(UserCampaignRole).filter_by(user_id = user_id).all()
 
+        if not user_involvements:
+            raise HTTPException(404, "User not found or no campaign or world involvements")
+
         # extract campaign ID's
         user_campaign_ids = {item.campaign_id for item in user_involvements}
 
