@@ -49,6 +49,10 @@ jobs:
           PYTHONPATH: ${{ github.workspace }}/backend
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          SUPABASE_DB_HOST: ${{ secrets.SUPABASE_DB_HOST }}
+          SUPABASE_DB_NAME: ${{ secrets.SUPABASE_DB_NAME }}
+          SUPABASE_DB_PORT: ${{ secrets.SUPABASE_DB_PORT }}
+          SUPABASE_JWT_SECRET: ${{ secrets.SUPABASE_JWT_SECRET }}
         run: |
           source .venv/bin/activate
           pytest --cov=app --cov-branch --cov-report=xml:reports/coverage.xml --junitxml=reports/results.xml
