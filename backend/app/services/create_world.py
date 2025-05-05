@@ -1,27 +1,24 @@
-from fastapi import HTTPException
-from supabase import create_client
-from dotenv import load_dotenv
-from pydantic_extra_types.pendulum_dt import Date
-import os
+from app.db.models import World
+from app.core.exceptions import BadRequestError, DatabaseSaveError
 
-load_dotenv()
-
-def create_world(id:str, name: str, description: str, created_at: Date):
-    if len(description) > 100:
-        raise HTTPException(400, "Description is over the 100 character limit.")
-    
-    SUPABASE_URL = os.getenv("SUPABASE_URL")
-    SUPABASE_KEY = os.getenv("SUPABASE_KEY")
-
-    if not SUPABASE_URL or not SUPABASE_KEY:
-        raise HTTPException(500, "Supabase credentials missing")
+def create_world(input_name: str, input_description: str, user_id, db):
+    if len(input_name) > 100:
+        raise BadRequestError("Name must be less than 100 characters")
     
     try:
-        supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+        new_world = World(
+            name = input_name,
+            description = input_description,
+            created_by = user_id
+        )
 
-        response = "Add db stuff when Ernesto is done"
+        db.add(new_world)
+        db.commit()
+        db.refresh(new_world)
 
-        return response
+        return {
+            "world": new_world.id
+        }
     
     except Exception as e: 
-        raise HTTPException(500, str(e))
+        raise DatabaseSaveError(str(e))

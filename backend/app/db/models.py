@@ -13,7 +13,7 @@ class World(Base):
     name = Column(String(100), unique=True, nullable=False)
     description = Column(Text)
     created_at = Column(DateTime, default=datetime.now)
-    created_by = Column(UUID, ForeignKey('auth.users.id', ondelete='SET NULL'), nullable=False)
+    created_by = Column(UUID, nullable=True)
 
     campaigns = relationship("Campaign", back_populates="world")
     regions = relationship("MapRegion", back_populates="world")
