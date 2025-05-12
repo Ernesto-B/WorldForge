@@ -30,7 +30,7 @@ class settings(BaseModel):
 
 class new_world_settings(BaseModel):
     settings_id: int
-    changed_settings: settings
+    settings: settings
 
 
 @world_controller.post("/create_world")
@@ -58,6 +58,6 @@ def update_world_settings(
     request: new_world_settings,
     db: Session = Depends(get_db)
 ):
-    data = change_settings(request.settings_id, request.changed_settings, db)    
+    data = change_settings(request.settings_id, request.settings, db)    
     return data
 
