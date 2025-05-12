@@ -7,6 +7,7 @@ from app.services.change_world_name import change_world_name
 from app.services.change_world_description import change_world_description
 from app.services.search_world_id import search_world_id
 from app.services.update_world_settings import change_settings
+from app.services.create_world_time import create_world_time
 from app.db.supabaseDB import get_db
 from app.db.models import World
 from app.core.security import get_current_user_id
@@ -73,7 +74,7 @@ def update_world_name(
     world = change_world_description(request.world_id, request.input, db)
     return world
 
-# = = = = = = = = = = = = = = = = = 
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 # World Settings
 
 @world_controller.post("/update_world_settings")
@@ -84,13 +85,21 @@ def update_world_settings(
     data = change_settings(request.settings_id, request.settings, db)    
     return data
 
-# = = = = = = = = = = = = = = = = = 
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 # World Time
 
-# @world_controller.post("/create_world_time")
-# def create_world_time(
-#     world_id: str,
-#     db: Session = Depends(get_db)
-# ):
-#     world_time = new_world_time(world_id, db)
-#     return world_time
+@world_controller.post("/create_world_time")
+def new_world_time(
+    request: world_search_id,
+    db: Session = Depends(get_db)
+):
+    world_time = create_world_time(request.search, db)
+    return world_time
+
+@world_controller.post("/update_world_time")
+def change_world_time(
+    request: new_world_input,
+    db: Session = Depends(get_db)
+):
+    world_time = update_world_time(request.world_id, request.input, db)
+    return world_time
