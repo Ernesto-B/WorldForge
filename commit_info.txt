@@ -1,4 +1,4 @@
-Commit Message: Merge branch 'main' of https://github.com/Ernesto-B/WorldForge
+Commit Message: fix: fixed nav for login and register on home page
 
-Commit Timestamp: 2025-05-12T17:24:27-0600
-Commit SHA: a23f2a9
+Commit Timestamp: 2025-05-12T17:35:26-0600
+Commit SHA: 3a1f362
