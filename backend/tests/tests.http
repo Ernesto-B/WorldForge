@@ -54,6 +54,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6ImFqM29NWnVRc3ZoaEhjVGYiLCJ0eX
     "description": "Will there be settings attached to this?"
 }
 
+### test world name change
+POST http://localhost:3000/api/worlds/update_world_name
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6ImFqM29NWnVRc3ZoaEhjVGYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3dhYWlxand2amN0ZmFndXhtZ2ZqLnN1cGFiYXNlLmNvL2F1dGgvdjEiLCJzdWIiOiI2YmI2Mzk4NS0yMjE4LTRmMWMtODA0OS00YzNhOTc2YTdhYTUiLCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzQ3MDM0NTA0LCJpYXQiOjE3NDcwMzA5MDQsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsiZW1haWxfdmVyaWZpZWQiOnRydWV9LCJyb2xlIjoiYXV0aGVudGljYXRlZCIsImFhbCI6ImFhbDEiLCJhbXIiOlt7Im1ldGhvZCI6InBhc3N3b3JkIiwidGltZXN0YW1wIjoxNzQ3MDMwOTA0fV0sInNlc3Npb25faWQiOiI1YjA2NDNhMC02NjA4LTQwYzEtYjkwZC02NmE5OTFmNWU5YTYiLCJpc19hbm9ueW1vdXMiOmZhbHNlfQ.1JH3DLbvDBPx0B2mhA2aVs-A3Pd9rz5PPOsb2qqJe44
+
+{
+    "world_id": "4",
+    "input": "Did the name change?"
+}
+
 ### testing get world
 GET http://localhost:3000/api/worlds/get_world
 content-type: application/json

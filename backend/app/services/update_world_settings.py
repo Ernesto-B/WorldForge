@@ -4,7 +4,6 @@ from app.db.models import WorldSettings
 
 def change_settings(settings_id:int, changed_settings, db):
     try:
-
         settings = db.query(WorldSettings).where(WorldSettings.id == settings_id).first()
 
         if not settings:
