@@ -1,4 +1,6 @@
 # Proposed API Route Structure for WorldForge
+> [!WARNING]
+> NEEDS UPDATING. Cross-reference with `docUxFlowPlan.md` for best idea of features/routes.
 
 ## Overview
 
@@ -17,11 +19,12 @@ This API route structure is designed to support the core features of WorldForge,
 
 ## Users
 
-| Method | Endpoint               | Description                                |
-| ------ | ---------------------- | ------------------------------------------ |
-| GET    | /api/users/me          | Get current user profile                   |
-| GET    | /api/users/{user_id}   | Get details for a specific user            |
-| POST   | /api/users/assign-role | Assign a role to a user (DM, Player, etc.) |
+| Method | Endpoint                | Description                                |
+| ------ | ----------------------  | ------------------------------------------ |
+| GET    | /api/users/me           | Get current user profile                   |
+| GET    | /api/users/notifications| Get notifications from world and campaigns |
+| GET    | /api/users/events       | Get events from world                      |
+| GET    | /api/users/{user_id}    | Get details for a specific user            |
 
 ---
 

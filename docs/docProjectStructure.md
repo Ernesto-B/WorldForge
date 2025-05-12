@@ -1,9 +1,16 @@
 ```txt
 worldforge/backend
 │
+├── requirements.txt    # For easy installation of packages
+│
+├── tests/
+│   ├── *.py    # All testing files
+│
+├── report-site/
+│   └── index.html
+│
 ├── app/
-│   ├── __init__.py
-│   ├── main.py
+│   ├── gateway.py
 │   ├── core/
 │   │   └── security.py           # OAuth, JWT, RBAC logic
 │   ├── controllers/
@@ -37,7 +44,7 @@ worldforge/backend
 │   │   ├── event_repository.py
 │   │   └── lore_repository.py
 │   └── db/
-│       ├── database.py            # Database connection setup
+│       ├── supabaseDB.py          # Database connection setup
 │       └── models.py              # SQLAlchemy models
 │
 └── README.md
