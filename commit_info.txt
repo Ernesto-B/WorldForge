@@ -1,5 +1,4 @@
-Commit Message: Merge pull request #28 from Ernesto-B/backend-dev
+Commit Message: Merge branch 'main' of https://github.com/Ernesto-B/WorldForge
 
-Backend dev
-Commit Timestamp: 2025-05-04T20:41:13-0600
-Commit SHA: f98e557
+Commit Timestamp: 2025-05-12T17:24:27-0600
+Commit SHA: a23f2a9
