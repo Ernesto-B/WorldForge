@@ -120,3 +120,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6ImFqM29NWnVRc3ZoaEhjVGYiLCJ0eX
     "id": "1",
     "input": "Franktuber 72nd, 812"
 }
+
+### testing create world event
+POST http://localhost:3000/api/events/create_event
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6ImFqM29NWnVRc3ZoaEhjVGYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3dhYWlxand2amN0ZmFndXhtZ2ZqLnN1cGFiYXNlLmNvL2F1dGgvdjEiLCJzdWIiOiI2YmI2Mzk4NS0yMjE4LTRmMWMtODA0OS00YzNhOTc2YTdhYTUiLCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzQ3MTIzMjMwLCJpYXQiOjE3NDcxMTk2MzAsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsiZW1haWxfdmVyaWZpZWQiOnRydWV9LCJyb2xlIjoiYXV0aGVudGljYXRlZCIsImFhbCI6ImFhbDEiLCJhbXIiOlt7Im1ldGhvZCI6InBhc3N3b3JkIiwidGltZXN0YW1wIjoxNzQ3MTE5NjMwfV0sInNlc3Npb25faWQiOiIzNTkyZjM3ZC05NmNlLTQ5OTgtYWJmNC00OTNmNGVmZDIxNTMiLCJpc19hbm9ueW1vdXMiOmZhbHNlfQ.IWOci8W-9912xI0cM_LZSNuywKeJEXEFWVvqo5-8uSI
+
+{
+    "id": 4,
+    "title": "NEW EVENT!",
+    "description": "the event of all time",
+    "visible_at_session": "4"
+}
