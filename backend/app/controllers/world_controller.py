@@ -1,15 +1,15 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from typing import Any
-from pydantic import BaseModel, EmailStr, Json
+from pydantic import BaseModel, EmailStr
 from app.services.create_world import create_world
 from app.services.change_world_name import change_world_name
 from app.services.change_world_description import change_world_description
 from app.services.search_world_id import search_world_id
 from app.services.update_world_settings import change_settings
 from app.services.create_world_time import create_world_time
+from app.services.change_world_time import change_world_time
 from app.db.supabaseDB import get_db
-from app.db.models import World
 from app.core.security import get_current_user_id
 
 world_controller = APIRouter()
@@ -21,8 +21,8 @@ class new_world(BaseModel):
 class world_search_id(BaseModel):
     search: int
 
-class new_world_input(BaseModel):
-    world_id: int
+class new_input(BaseModel):
+    id: int
     input: str
 
 class settings(BaseModel):
@@ -39,6 +39,8 @@ class new_world_settings(BaseModel):
     settings_id: int
     settings: settings
 
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+# Create world
 
 @world_controller.post("/create_world")
 def new_world(
@@ -59,19 +61,19 @@ def get_world_by_id(
 
 @world_controller.post("/update_world_name")
 def update_world_name(
-    request: new_world_input,
+    request: new_input,
     user_id: str = Depends(get_current_user_id),
     db: Session = Depends(get_db)
 ):
-    world = change_world_name(request.world_id, request.input, user_id, db)
+    world = change_world_name(request.id, request.input, user_id, db)
     return world
 
 @world_controller.post("/update_world_description")
 def update_world_name(
-    request: new_world_input,
+    request: new_input,
     db: Session = Depends(get_db)
 ):
-    world = change_world_description(request.world_id, request.input, db)
+    world = change_world_description(request.id, request.input, db)
     return world
 
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -97,9 +99,9 @@ def new_world_time(
     return world_time
 
 @world_controller.post("/update_world_time")
-def change_world_time(
-    request: new_world_input,
+def update_world_time(
+    request: new_input,
     db: Session = Depends(get_db)
 ):
-    world_time = update_world_time(request.world_id, request.input, db)
+    world_time = change_world_time(request.id, request.input, db)
     return world_time
