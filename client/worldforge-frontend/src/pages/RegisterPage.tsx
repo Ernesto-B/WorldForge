@@ -1,43 +1,20 @@
-import { Box, Button, Link, TextField, Typography } from "@mui/material";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { Button, Link, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
-interface LoginFormInputs {
-  email: string;
-  password: string;
-}
 
 export const RegisterPage = () => {
   const nav = useNavigate();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginFormInputs>();
-
-  const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
-    console.log("Login data:", data);
-    nav("/");
-    // Add login logic here
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    nav("/login");
+    console.log("Successfully created account");
   };
 
   return (
     <main className="min-h-dvh bg-[#1b1b1b] flex justify-center items-center bg-[url(/src/assets/images/bg5.jpeg)] bg-cover bg-no-repeat">
-      <Box
-        component="form"
-        onSubmit={handleSubmit(onSubmit)}
-        sx={{
-          width: "350px",
-          backgroundColor: "#2b2b2b",
-          border: "1px solid #ffa500",
-          display: "flex",
-          flexDirection: "column",
-          gap: 2,
-          padding: 5,
-          borderRadius: 2,
-          color: "#f0f0f0",
-        }}
+      <form
+        className="w-[350px] bg-[#2b2b2b] border-2 border-[#ffa500] flex flex-col gap-4 p-8 rounded-lg text-[#f0f0f0]"
+        onSubmit={handleSubmit}
       >
         <Typography
           variant="h1"
@@ -48,12 +25,10 @@ export const RegisterPage = () => {
           REGISTER
         </Typography>
         <TextField
+          required
           label="Email"
           type="email"
           fullWidth
-          {...register("email", { required: "Email is required" })}
-          error={!!errors.email}
-          helperText={errors.email?.message}
           InputLabelProps={{
             style: { color: "#ffa500" },
           }}
@@ -69,14 +44,10 @@ export const RegisterPage = () => {
             "& .MuiFormHelperText-root": { color: "#f87171" }, // optional: error text color
           }}
         />
-
         <TextField
           label="Password"
           type="password"
           fullWidth
-          {...register("password", { required: "Password is required" })}
-          error={!!errors.password}
-          helperText={errors.password?.message}
           InputLabelProps={{
             style: { color: "#ffa500" },
           }}
@@ -92,7 +63,6 @@ export const RegisterPage = () => {
             "& .MuiFormHelperText-root": { color: "#f87171" },
           }}
         />
-
         <Button
           type="submit"
           variant="contained"
@@ -109,10 +79,10 @@ export const RegisterPage = () => {
         >
           Create Account
         </Button>
-        <Link href="/login" color="#ffa500">
+        <Link href="/login" color="#ffa500" width="fit-content">
           Login here.
         </Link>
-      </Box>
+      </form>
     </main>
   );
 };

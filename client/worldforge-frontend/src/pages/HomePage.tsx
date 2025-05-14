@@ -143,116 +143,25 @@ export const HomePage = () => {
             className="w-1/2 h-[500px] shadow-black shadow-2xl object-cover rounded"
           />
         </section>
-        <section>
-          <Box
-            sx={{
-              position: "relative",
-              overflow: "hidden",
-              width: "100%",
-              py: 4,
-            }}
+        <section className="flex justify-evenly h-[500px]">
+          <Card
+            className="w-100 max-h-100"
+            sx={{ bgcolor: "#2b2b2b", boxShadow: "2px 2px 12px 12px #151515" }}
           >
-            {/* Gradient Overlays */}
-            <Box
-              sx={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100px",
-                height: "100%",
-                background: "linear-gradient(to right, #1b1b1b, transparent)",
-                zIndex: 1,
-                pointerEvents: "none",
-              }}
-            />
-            <Box
-              sx={{
-                position: "absolute",
-                top: 0,
-                right: 0,
-                width: "100px",
-                height: "100%",
-                background: "linear-gradient(to left, #1b1b1b, transparent)",
-                zIndex: 1,
-                pointerEvents: "none",
-              }}
-            />
-
-            {/* Animated Scroll Container */}
-            <Stack
-              direction="row"
-              spacing={2}
-              sx={{
-                width: "max-content",
-                animation: "scroll-left 50s linear infinite",
-              }}
-            >
-              {[...Array(2)].flatMap(() => [
-                <Card key="map" sx={{ width: 400, height: 400 }}>
-                  <CardContent>
-                    <Typography variant="overline" fontSize={14}>
-                      Interactive Map
-                    </Typography>
-                    <Typography>
-                      Clickable locations with linked lore, characters, and
-                      shops.
-                    </Typography>
-                  </CardContent>
-                </Card>,
-                <Card key="fog" sx={{ width: 400, height: 400 }}>
-                  <CardContent>
-                    <Typography variant="overline" fontSize={14}>
-                      Fog-of-War
-                    </Typography>
-                    <Typography>
-                      Reveal regions as the party explores.
-                    </Typography>
-                  </CardContent>
-                </Card>,
-                <Card key="path" sx={{ width: 400, height: 400 }}>
-                  <CardContent>
-                    <Typography variant="overline" fontSize={14}>
-                      Session Path Tracking
-                    </Typography>
-                    <Typography>
-                      Visualize the party’s movement over time.
-                    </Typography>
-                  </CardContent>
-                </Card>,
-                <Card key="multi" sx={{ width: 400, height: 400 }}>
-                  <CardContent>
-                    <Typography variant="overline" fontSize={14}>
-                      Multi-Campaign Support
-                    </Typography>
-                    <Typography>
-                      Run multiple adventures in the same world with scoped
-                      visibility.
-                    </Typography>
-                  </CardContent>
-                </Card>,
-                <Card key="journals" sx={{ width: 400, height: 400 }}>
-                  <CardContent>
-                    <Typography variant="overline" fontSize={14}>
-                      Player Journals & Markers
-                    </Typography>
-                    <Typography>
-                      Let players leave notes and track personal goals.
-                    </Typography>
-                  </CardContent>
-                </Card>,
-                <Card key="events" sx={{ width: 400, height: 400 }}>
-                  <CardContent>
-                    <Typography variant="overline" fontSize={14}>
-                      World Events System
-                    </Typography>
-                    <Typography>
-                      Global changes reflected across all campaigns.
-                    </Typography>
-                  </CardContent>
-                </Card>,
-              ])}
-            </Stack>
-          </Box>
+            <CardContent></CardContent>
+          </Card>
+          <Card
+            className="w-100 max-h-100"
+            sx={{ bgcolor: "#2b2b2b", boxShadow: "2px 2px 12px 12px #151515" }}
+          >
+            <CardContent></CardContent>
+          </Card>
+          <Card
+            className="w-100 max-h-100"
+            sx={{ bgcolor: "#2b2b2b", boxShadow: "2px 2px 12px 12px #151515" }}
+          >
+            <CardContent></CardContent>
+          </Card>
         </section>
       </main>
     </div>
