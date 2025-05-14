@@ -1,4 +1,4 @@
-Commit Message: fix: fixed nav for login and register on home page
+Commit Message: feature: fixed navigation on login and register pages. Also started changing up the landing page to continue working on it. Once landing page is finished, will connect frontend to backend for auth to work and then begin working on hub pages.
 
-Commit Timestamp: 2025-05-12T17:35:26-0600
-Commit SHA: 3a1f362
+Commit Timestamp: 2025-05-13T21:55:07-0600
+Commit SHA: ab861a1
