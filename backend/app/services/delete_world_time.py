@@ -1,7 +1,6 @@
 from app.db.models import WorldTime
 from app.core.exceptions import WorldNotFoundError, DatabaseSaveError
 
-
 def delete_world_time(world:int, db):
     try:
         delete = db.query(WorldTime).where(WorldTime.id == world).first()

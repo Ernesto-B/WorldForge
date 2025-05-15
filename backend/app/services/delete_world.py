@@ -7,15 +7,6 @@ def delete_world(world:int, db):
         if not delete:
             raise WorldNotFoundError("World Not Found")
         
-        # delete_settings = db.query(WorldSettings).where(WorldSettings.world_id == world).first
-        # if not delete_settings:
-        #     raise WorldNotFoundError("World Settings Not Found")
-        
-        # delete_time = db.query(WorldTime).where(WorldTime.world_id == world).first()
-        # if delete_time:
-        #     db.delete(delete_time)
-
-        # db.delete(delete_settings)
         db.delete(delete)
         db.commit()
 
