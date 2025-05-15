@@ -6,9 +6,11 @@ from app.services.create_world import create_world
 from app.services.change_world_name import change_world_name
 from app.services.change_world_description import change_world_description
 from app.services.search_world_id import search_world_id
+from app.services.delete_world import delete_world
 from app.services.update_world_settings import change_settings
 from app.services.create_world_time import create_world_time
 from app.services.change_world_time import change_world_time
+from app.services.delete_world_time import delete_world_time
 from app.db.supabaseDB import get_db
 from app.core.security import get_current_user_id
 
@@ -76,6 +78,14 @@ def update_world_name(
     world = change_world_description(request.id, request.input, db)
     return world
 
+@world_controller.delete("/delete_world")
+def remove_world(
+    request: world_search_id,
+    db: Session = Depends(get_db)
+):
+    deleted = delete_world(request.search, db)
+    return deleted
+
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 # World Settings
 
@@ -105,3 +115,11 @@ def update_world_time(
 ):
     world_time = change_world_time(request.id, request.input, db)
     return world_time
+
+@world_controller.delete("/delete_world_time")
+def remove_world_time(
+    request: world_search_id,
+    db: Session = Depends(get_db)
+):
+    deleted = delete_world_time(request.search, db)
+    return deleted
