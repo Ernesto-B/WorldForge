@@ -3,8 +3,9 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from sqlalchemy.exc import SQLAlchemyError
 from app.controllers.auth_controller import auth_controller
-# from app.controllers.world_controller import world_controller
+from app.controllers.world_controller import world_controller
 from app.controllers.users_controller import users_controller
+from app.controllers.event_controller import event_controller
 # from app.controllers.campaign_controller import campaigns_controller
 
 app = FastAPI()
@@ -40,7 +41,7 @@ app = FastAPI()
 # core routers
 app.include_router(auth_controller, prefix="/api/auth", tags=["auth"])
 app.include_router(users_controller, prefix="/api/users", tags=["users"])
-# app.include_router(world_controller, prefix="/api/worlds", tags=["worlds"])
+app.include_router(world_controller, prefix="/api/worlds", tags=["worlds"])
 
 # # campaigns
 # app.include_router(campaigns_controller, prefix="/api/campaigns", tags=["campaigns"])
@@ -59,7 +60,7 @@ app.include_router(users_controller, prefix="/api/users", tags=["users"])
 # app.include_router(markers_controller.router, prefix="/api/worlds/{world_id}/markers", tags=["markers"])
 
 # # world events
-# app.include_router(events_controller.router, prefix="/api/events", tags=["events"])
+app.include_router(event_controller, prefix="/api/events", tags=["events"])
 # app.include_router(events_controller.router, prefix="/api/worlds/{world_id}/events", tags=["events"])
 
 # # lore entries

@@ -13,22 +13,22 @@ class World(Base):
     name = Column(String(100), unique=True, nullable=False)
     description = Column(Text)
     created_at = Column(DateTime, default=datetime.now)
-    created_by = Column(UUID, ForeignKey('auth.users.id', ondelete='SET NULL'), nullable=False)
+    created_by = Column(UUID, nullable=True)
 
-    campaigns = relationship("Campaign", back_populates="world")
-    regions = relationship("MapRegion", back_populates="world")
-    events = relationship("WorldEvent", back_populates="world")
-    markers = relationship("MapMarker", back_populates="world")
-    settings = relationship("WorldSettings", back_populates="world", uselist=False)
-    notifications = relationship("Notification", back_populates="world")
-    time = relationship("WorldTime", back_populates="world", uselist=False)
+    campaigns = relationship("Campaign", back_populates="world", cascade="all, delete-orphan")
+    regions = relationship("MapRegion", back_populates="world", cascade="all, delete-orphan")
+    events = relationship("WorldEvent", back_populates="world", cascade="all, delete-orphan")
+    markers = relationship("MapMarker", back_populates="world", cascade="all, delete-orphan")
+    settings = relationship("WorldSettings", back_populates="world", uselist=False, cascade="all, delete-orphan")
+    notifications = relationship("Notification", back_populates="world", cascade="all, delete-orphan")
+    time = relationship("WorldTime", back_populates="world", uselist=False, cascade="all, delete-orphan")
 
 
 class WorldSettings(Base):
     __tablename__ = 'world_settings'
 
     id = Column(Integer, primary_key=True)
-    world_id = Column(Integer, ForeignKey('worlds.id', ondelete='CASCADE'), unique=True, nullable=False)
+    world_id = Column(Integer, ForeignKey('worlds.id', ondelete='CASCADE'), unique=True)
     allow_public_visibility = Column(Boolean, default=False)
     join_method = Column(String(20))
     max_campaigns = Column(Integer, default=5)
@@ -52,11 +52,11 @@ class Campaign(Base):
     created_at = Column(DateTime, default=datetime.now)
 
     world = relationship("World", back_populates="campaigns")
-    sessions = relationship("Session", back_populates="campaign")
-    positions = relationship("PartyPosition", back_populates="campaign")
-    invites = relationship("CampaignInvite", back_populates="campaign")
-    notifications = relationship("Notification", back_populates="campaign")
-    roles = relationship("UserCampaignRole", back_populates="campaign")
+    sessions = relationship("Session", back_populates="campaign", cascade="all, delete-orphan")
+    positions = relationship("PartyPosition", back_populates="campaign", cascade="all, delete-orphan")
+    invites = relationship("CampaignInvite", back_populates="campaign", cascade="all, delete-orphan")
+    notifications = relationship("Notification", back_populates="campaign", cascade="all, delete-orphan")
+    roles = relationship("UserCampaignRole", back_populates="campaign", cascade="all, delete-orphan")
 
 
 class MapRegion(Base):

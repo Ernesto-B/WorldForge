@@ -3,6 +3,9 @@
 ## Overview
 This schema is designed to support the core features of WorldForge. It is designed with relational integrity in mind and optimized for PostgreSQL (or any RDB). To prevent SQL injections and be DB agnostic, we will also use SQLAlchemy ORM.
 
+## ** Disclaimer **
+There is an error in the relationships of the parent tables where the `ON DELETE CASCADE` does not work as intended. Current fix is to add `cascade="all, delete-orphan"` to the relationship of the parent table.
+
 - [WorldForge Database Schema Design and ORM](#worldforge-database-schema-design-and-orm)
   - [Overview](#overview)
   - [Users](#users)
