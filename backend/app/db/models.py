@@ -17,18 +17,18 @@ class World(Base):
 
     campaigns = relationship("Campaign", back_populates="world")
     regions = relationship("MapRegion", back_populates="world")
-    events = relationship("WorldEvent", back_populates="world")
+    events = relationship("WorldEvent", back_populates="world", cascade="all, delete-orphan")
     markers = relationship("MapMarker", back_populates="world")
-    settings = relationship("WorldSettings", back_populates="world", uselist=False)
+    settings = relationship("WorldSettings", back_populates="world", uselist=False, cascade="all, delete-orphan")
     notifications = relationship("Notification", back_populates="world")
-    time = relationship("WorldTime", back_populates="world", uselist=False)
+    time = relationship("WorldTime", back_populates="world", uselist=False, cascade="all, delete-orphan")
 
 
 class WorldSettings(Base):
     __tablename__ = 'world_settings'
 
     id = Column(Integer, primary_key=True)
-    world_id = Column(Integer, ForeignKey('worlds.id', ondelete='CASCADE'), unique=True, nullable=False)
+    world_id = Column(Integer, ForeignKey('worlds.id', ondelete='CASCADE'), unique=True)
     allow_public_visibility = Column(Boolean, default=False)
     join_method = Column(String(20))
     max_campaigns = Column(Integer, default=5)

@@ -21,7 +21,7 @@ class new_world(BaseModel):
     description: str
 
 class world_search_id(BaseModel):
-    search: int
+    world_id: int
 
 class new_input(BaseModel):
     id: int
@@ -58,7 +58,7 @@ def get_world_by_id(
     request: world_search_id,
     db: Session = Depends(get_db)
 ):
-    found_world = search_world_id(request.search, db)
+    found_world = search_world_id(request.world_id, db)
     return found_world
 
 @world_controller.post("/update_world_name")
@@ -83,7 +83,7 @@ def remove_world(
     request: world_search_id,
     db: Session = Depends(get_db)
 ):
-    deleted = delete_world(request.search, db)
+    deleted = delete_world(request.world_id, db)
     return deleted
 
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -105,7 +105,7 @@ def new_world_time(
     request: world_search_id,
     db: Session = Depends(get_db)
 ):
-    world_time = create_world_time(request.search, db)
+    world_time = create_world_time(request.world_id, db)
     return world_time
 
 @world_controller.post("/update_world_time")
@@ -121,5 +121,5 @@ def remove_world_time(
     request: world_search_id,
     db: Session = Depends(get_db)
 ):
-    deleted = delete_world_time(request.search, db)
+    deleted = delete_world_time(request.world_id, db)
     return deleted
