@@ -1,4 +1,4 @@
-Commit Message: feature: fixed navigation on login and register pages. Also started changing up the landing page to continue working on it. Once landing page is finished, will connect frontend to backend for auth to work and then begin working on hub pages.
+Commit Message: Merge ad41f00ebd37abc28854ce0eef4f93ddafafa22e into ab861a1d48ffc1534f6c26a3d57e804936e1aa91
 
-Commit Timestamp: 2025-05-13T21:55:07-0600
-Commit SHA: ab861a1
+Commit Timestamp: 2025-05-14T22:26:34-0600
+Commit SHA: 57cf17b
