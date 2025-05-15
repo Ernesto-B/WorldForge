@@ -15,12 +15,12 @@ class World(Base):
     created_at = Column(DateTime, default=datetime.now)
     created_by = Column(UUID, nullable=True)
 
-    campaigns = relationship("Campaign", back_populates="world")
-    regions = relationship("MapRegion", back_populates="world")
+    campaigns = relationship("Campaign", back_populates="world", cascade="all, delete-orphan")
+    regions = relationship("MapRegion", back_populates="world", cascade="all, delete-orphan")
     events = relationship("WorldEvent", back_populates="world", cascade="all, delete-orphan")
-    markers = relationship("MapMarker", back_populates="world")
+    markers = relationship("MapMarker", back_populates="world", cascade="all, delete-orphan")
     settings = relationship("WorldSettings", back_populates="world", uselist=False, cascade="all, delete-orphan")
-    notifications = relationship("Notification", back_populates="world")
+    notifications = relationship("Notification", back_populates="world", cascade="all, delete-orphan")
     time = relationship("WorldTime", back_populates="world", uselist=False, cascade="all, delete-orphan")
 
 
@@ -52,11 +52,11 @@ class Campaign(Base):
     created_at = Column(DateTime, default=datetime.now)
 
     world = relationship("World", back_populates="campaigns")
-    sessions = relationship("Session", back_populates="campaign")
-    positions = relationship("PartyPosition", back_populates="campaign")
-    invites = relationship("CampaignInvite", back_populates="campaign")
-    notifications = relationship("Notification", back_populates="campaign")
-    roles = relationship("UserCampaignRole", back_populates="campaign")
+    sessions = relationship("Session", back_populates="campaign", cascade="all, delete-orphan")
+    positions = relationship("PartyPosition", back_populates="campaign", cascade="all, delete-orphan")
+    invites = relationship("CampaignInvite", back_populates="campaign", cascade="all, delete-orphan")
+    notifications = relationship("Notification", back_populates="campaign", cascade="all, delete-orphan")
+    roles = relationship("UserCampaignRole", back_populates="campaign", cascade="all, delete-orphan")
 
 
 class MapRegion(Base):
