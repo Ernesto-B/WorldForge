@@ -3,14 +3,10 @@ import background from "../assets/images/dnd-wallpaper-1.jpg";
 import elf from "../assets/images/elf.png";
 import background2 from "../assets/images/bg2.png";
 import background3 from "../assets/images/bg1.jpg";
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Stack,
-  Typography,
-} from "@mui/material";
+import spectate from "../assets/images/dnd-spectate.avif";
+import worldbuild from "../assets/images/dnd-worldbuild.avif";
+import events from "../assets/images/dnd-worldevents.jpg";
+import { Button, Typography } from "@mui/material";
 
 export const HomePage = () => {
   return (
@@ -144,24 +140,56 @@ export const HomePage = () => {
           />
         </section>
         <section className="flex justify-evenly h-[500px]">
-          <Card
-            className="w-100 max-h-100"
-            sx={{ bgcolor: "#2b2b2b", boxShadow: "2px 2px 12px 12px #151515" }}
-          >
-            <CardContent></CardContent>
-          </Card>
-          <Card
-            className="w-100 max-h-100"
-            sx={{ bgcolor: "#2b2b2b", boxShadow: "2px 2px 12px 12px #151515" }}
-          >
-            <CardContent></CardContent>
-          </Card>
-          <Card
-            className="w-100 max-h-100"
-            sx={{ bgcolor: "#2b2b2b", boxShadow: "2px 2px 12px 12px #151515" }}
-          >
-            <CardContent></CardContent>
-          </Card>
+          <div className="w-96 h-fit max-h-96 bg-[#2b2b2b] shadow-[#0b0b0b] shadow-2xl rounded overflow-hidden group">
+            <img
+              src={spectate}
+              alt="characters spectating campaign"
+              className="transition-all duration-500 h-80 object-cover group-hover:brightness-75"
+            />
+            <div className="transition-all duration-500 group-hover:-translate-y-24 bg-[#2b2b2b]">
+              <p className="text-[#f0f0f0] text-2xl font-semibold text-center py-4">
+                Spectator Access
+              </p>
+              <p className="p-4 pt-0 text-[#f0f0f0]">
+                Non-players follow along as spectators, viewing the world map
+                and unlocked lore in real-time as sessions unfold.
+              </p>
+            </div>
+          </div>
+          <div className="w-96 h-fit max-h-96 bg-[#2b2b2b] shadow-[#0b0b0b] shadow-2xl rounded overflow-hidden group">
+            <img
+              src={worldbuild}
+              alt="characters building world"
+              className="transition-all duration-500 h-80 object-cover object-right group-hover:brightness-75"
+            />
+            <div className="transition-all duration-500 group-hover:-translate-y-28 bg-[#2b2b2b]">
+              <p className="text-[#f0f0f0] text-2xl font-semibold text-center py-4">
+                Collaboritive Worldbuilding
+              </p>
+              <p className="p-4 pt-0 text-[#f0f0f0]">
+                Trusted collaborators contribute to the world’s development by
+                adding lore entries, fleshing out regions, or populating cities
+                with characters and shops.
+              </p>
+            </div>
+          </div>
+          <div className="w-96 h-fit max-h-96 bg-[#2b2b2b] shadow-[#0b0b0b] shadow-2xl rounded overflow-hidden group">
+            <img
+              src={events}
+              alt="characters fighting dragon for world event"
+              className="transition-all duration-500 h-80 object-cover group-hover:brightness-75"
+            />
+            <div className="transition-all duration-500 group-hover:-translate-y-24 bg-[#2b2b2b]">
+              <p className="text-[#f0f0f0] text-2xl font-semibold text-center py-4">
+                World Events
+              </p>
+              <p className="p-4 pt-0 text-[#f0f0f0]">
+                DMs pin major world events that affect all campaigns, ensuring
+                that global shifts in the setting are communicated across
+                groups.
+              </p>
+            </div>
+          </div>
         </section>
       </main>
     </div>
