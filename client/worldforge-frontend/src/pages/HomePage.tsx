@@ -1,4 +1,5 @@
 import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 import background from "../assets/images/dnd-wallpaper-1.jpg";
 import elf from "../assets/images/elf.png";
 import background2 from "../assets/images/bg2.png";
@@ -6,6 +7,11 @@ import background3 from "../assets/images/bg1.jpg";
 import spectate from "../assets/images/dnd-spectate.avif";
 import worldbuild from "../assets/images/dnd-worldbuild.avif";
 import events from "../assets/images/dnd-worldevents.jpg";
+import worldmap from "../assets/images/dnd-world-map.webp";
+import fogofwar from "../assets/images/dnd-fogofwar.png";
+import playeranddm from "../assets/images/dnd-worldbuilding.avif";
+import dndMale from "../assets/images/dnd-character.png";
+import dndFemale from "../assets/images/dnd-character-female.png";
 import { Button, Typography } from "@mui/material";
 
 export const HomePage = () => {
@@ -139,7 +145,7 @@ export const HomePage = () => {
             className="w-1/2 h-[500px] shadow-black shadow-2xl object-cover rounded"
           />
         </section>
-        <section className="flex justify-evenly h-[500px]">
+        <section className="grid grid-cols-3 mx-auto gap-20">
           <div className="w-96 h-fit max-h-96 bg-[#2b2b2b] shadow-[#0b0b0b] shadow-2xl rounded overflow-hidden group">
             <img
               src={spectate}
@@ -190,8 +196,106 @@ export const HomePage = () => {
               </p>
             </div>
           </div>
+          <div className="w-96 h-fit max-h-96 bg-[#2b2b2b] shadow-[#0b0b0b] shadow-2xl rounded overflow-hidden group">
+            <img
+              src={worldmap}
+              alt="world map"
+              className="transition-all duration-500 h-80 object-cover group-hover:brightness-75"
+            />
+            <div className="transition-all duration-500 group-hover:-translate-y-34 bg-[#2b2b2b]">
+              <p className="text-[#f0f0f0] text-2xl font-semibold text-center py-4">
+                Interactive World Map
+              </p>
+              <p className="p-4 pt-0 text-[#f0f0f0]">
+                Explore a living world through an interactive map where every
+                location links to rich content like lore, NPCs, and shops. The
+                map evolves as your campaign progresses, revealing new regions
+                and deepening immersion.
+              </p>
+            </div>
+          </div>
+          <div className="w-96 h-fit max-h-96 bg-[#2b2b2b] shadow-[#0b0b0b] shadow-2xl rounded overflow-hidden group">
+            <img
+              src={fogofwar}
+              alt="fog of war"
+              className="transition-all duration-500 h-80 object-cover group-hover:brightness-75"
+            />
+            <div className="transition-all duration-500 group-hover:-translate-y-28 bg-[#2b2b2b]">
+              <p className="text-[#f0f0f0] text-2xl font-semibold text-center py-4">
+                Session Tracking & Fog of War
+              </p>
+              <p className="p-4 pt-0 text-[#f0f0f0]">
+                Track party journeys with hand-drawn session paths and
+                dynamically reveal areas using a fog-of-war system. Each session
+                becomes a visual story told across the map.
+              </p>
+            </div>
+          </div>
+          <div className="w-96 h-fit max-h-96 bg-[#2b2b2b] shadow-[#0b0b0b] shadow-2xl rounded overflow-hidden group">
+            <img
+              src={playeranddm}
+              alt="player and dm contributions to map"
+              className="transition-all duration-500 h-80 object-cover group-hover:brightness-75"
+            />
+            <div className="transition-all duration-500 group-hover:-translate-y-28 bg-[#2b2b2b]">
+              <p className="text-[#f0f0f0] text-2xl font-semibold text-center py-4">
+                Player & DM Contributions
+              </p>
+              <p className="p-4 pt-0 text-[#f0f0f0]">
+                DMs control world visibility while players add personal markers
+                and log sessions. Collaborators can expand the world with lore,
+                characters, and more, all within clear role-based permissions.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section className="flex justify-center items-center h-[700px] relative">
+          <div className="flex flex-col w-1/2 gap-6 items-center z-10">
+            <h2 className="text-[#f0f0f0] font-semibold text-5xl">
+              Begin Your Adventure Now!
+            </h2>
+            <p className="text-[#f0f0f0] text-xl text-center">
+              Bring your world to life with a map that grows as your story
+              unfolds. Whether you're a solo DM, part of a multi-party epic, or
+              just starting your first campaign, WorldForge gives you the tools
+              to track, build, and explore like never before. Visualize your
+              sessions, collaborate with players, and craft a living world your
+              group will never forget.
+            </p>
+            <p className="text-[#f0f0f0] text-2xl font-semibold">
+              Sign up now and start forging your world.
+            </p>
+            <Button
+              variant="contained"
+              sx={{
+                bgcolor: "var(--color-orange-500)",
+                fontWeight: "bold",
+                fontSize: "16px",
+                width: "fit-content",
+                padding: "10px",
+                marginTop: "20px",
+                transition: "all 0.3s ease",
+                "&:hover": {
+                  bgcolor: "var(--color-orange-700)",
+                },
+              }}
+            >
+              Create Account
+            </Button>
+          </div>
+          <img
+            className="absolute left-20 h-180 bottom-10 brightness-80"
+            src={dndFemale}
+            alt="D&D male character"
+          />
+          <img
+            className="absolute right-20 h-180 bottom-10 brightness-80"
+            src={dndFemale}
+            alt="D&D female character"
+          />
         </section>
       </main>
+      <Footer />
     </div>
   );
 };
