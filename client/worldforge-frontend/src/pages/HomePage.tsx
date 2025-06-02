@@ -10,7 +10,6 @@ import events from "../assets/images/dnd-worldevents.jpg";
 import worldmap from "../assets/images/dnd-world-map.webp";
 import fogofwar from "../assets/images/dnd-fogofwar.png";
 import playeranddm from "../assets/images/dnd-worldbuilding.avif";
-import dndMale from "../assets/images/dnd-character.png";
 import dndFemale from "../assets/images/dnd-character-female.png";
 import { Button, Typography } from "@mui/material";
 

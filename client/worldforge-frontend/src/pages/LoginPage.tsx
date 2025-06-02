@@ -1,12 +1,19 @@
 import { Button, TextField, Typography, Link } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { login } from "../auth/authService";
+import { useState } from "react";
 
 export const LoginPage = () => {
   const nav = useNavigate();
 
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    nav("/");
+    nav("/hub");
+    console.log("Email:", email);
+    console.log("Password:", password);
     console.log("Successfully logged in");
   };
 
@@ -26,9 +33,11 @@ export const LoginPage = () => {
         </Typography>
         <TextField
           label="Email"
+          value={email}
           type="email"
           required
           fullWidth
+          onChange={(e) => setEmail(e.target.value)}
           InputLabelProps={{
             style: { color: "#ffa500" },
           }}
@@ -47,8 +56,10 @@ export const LoginPage = () => {
         <TextField
           required
           label="Password"
+          value={password}
           type="password"
           fullWidth
+          onChange={(e) => setPassword(e.target.value)}
           InputLabelProps={{
             style: { color: "#ffa500" },
           }}

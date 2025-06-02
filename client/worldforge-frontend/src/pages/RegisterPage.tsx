@@ -1,13 +1,25 @@
 import { Button, Link, TextField, Typography } from "@mui/material";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { register } from "../auth/authService";
 
 export const RegisterPage = () => {
   const nav = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    nav("/login");
-    console.log("Successfully created account");
+    try {
+      const data = await register(email, password);
+      console.log("Registration successful:", data);
+    } catch (error: any) {
+      console.error(
+        "Registration failed:",
+        error.response?.data || error.message
+      );
+    }
   };
 
   return (
@@ -27,6 +39,8 @@ export const RegisterPage = () => {
         <TextField
           required
           label="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           type="email"
           fullWidth
           InputLabelProps={{
@@ -46,6 +60,8 @@ export const RegisterPage = () => {
         />
         <TextField
           label="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           type="password"
           fullWidth
           InputLabelProps={{
