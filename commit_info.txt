@@ -1,4 +1,4 @@
-Commit Message: Merge branch 'main' of https://github.com/Ernesto-B/WorldForge
+Commit Message: feature: began adding auth functionality with backend, not finished yet.
 
-Commit Timestamp: 2025-05-30T18:41:07-0600
-Commit SHA: f358baf
+Commit Timestamp: 2025-06-02T17:27:15-0600
+Commit SHA: 633e7c1
