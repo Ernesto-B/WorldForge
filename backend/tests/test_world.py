@@ -131,13 +131,15 @@ def test_long_world_name(auth_client, test_world_fail):
 # 
 # # Test the search function
 # def test_search_world_success(auth_client, search_success):
-#     response = auth_client.post("/api/worlds/get_world", json=search_success)
+#     response = auth_client.get("/api/worlds/get_world", params=search_success)
 #     print(response.json())
 #     assert response.status_code == 200
 
-#Testing to failed search
+# Testing to failed search
 def test_search_world_fail(auth_client, search_fail):
-    response = auth_client.get("/api/worlds/get_world", json=search_fail)
+    response = auth_client.get("/api/worlds/get_world", params=search_fail)
     print(response.json())
-    assert response.status_code == 500
+    assert response.status_code == 422
+
+
 

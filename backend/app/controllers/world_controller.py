@@ -71,7 +71,7 @@ def update_world_name(
     return world
 
 @world_controller.post("/update_world_description")
-def update_world_name(
+def update_world_description(
     request: new_input,
     db: Session = Depends(get_db)
 ):
